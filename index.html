@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Vietnam Trip</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..700&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+  /* Tokens (Phú Quốc coastal: sand, sea teal, coral, palm) */
+  :root{
+    --paper:#F6EFE4; --surface:#FFFCF7; --ink:#14262A; --ink-soft:#4F6266; --line:#E4DACB; --lacquer:#AD412A; --lacquer-soft:#F8E0D6; --jade:#397145; --jade-soft:#DFEBDD; --gold:#885D11; --gold-soft:#F2E4C4; --focus:#2B6CB0; --brand:#0F6E7A; --brand-soft:#D9ECEC; --wood:#6B5A45; --wood-soft:#ECE3D6;
+    --c-hn:#AD412A; --c-pq:#0F6E7A; --c-sg:#885D11;
+    /* Map: tiles stay light in both themes, so these do not flip in dark */
+    --map-surface:#FFFCF7; --map-ink:#14262A; --map-ink-soft:#4F6266; --map-line:#E4DACB; --map-neutral:#9AA8A6; --map-brand:#0F6E7A; --map-gold:#885D11; --map-lacquer:#AD412A; --map-lacquer-soft:#F8E0D6; --map-wood:#6B5A45; --map-palm:#1F5C4C;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1B1E; --surface:#152629; --ink:#EAF2F0; --ink-soft:#A9BFBF; --line:#2A3E41; --lacquer:#F0907A; --lacquer-soft:#3A2420; --jade:#8CCB97; --jade-soft:#1C2E22; --gold:#E2BC6E; --gold-soft:#352A16; --focus:#7CB3EC; --brand:#6FC7CF; --brand-soft:#143238; --wood:#CDB08C; --wood-soft:#2E271E;
+      --c-hn:#F0907A; --c-pq:#6FC7CF; --c-sg:#E2BC6E;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1B1E; --surface:#152629; --ink:#EAF2F0; --ink-soft:#A9BFBF; --line:#2A3E41; --lacquer:#F0907A; --lacquer-soft:#3A2420; --jade:#8CCB97; --jade-soft:#1C2E22; --gold:#E2BC6E; --gold-soft:#352A16; --focus:#7CB3EC; --brand:#6FC7CF; --brand-soft:#143238; --wood:#CDB08C; --wood-soft:#2E271E;
+    --c-hn:#F0907A; --c-pq:#6FC7CF; --c-sg:#E2BC6E;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Be Vietnam Pro', system-ui, sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:760px;margin-inline:auto;padding-inline:16px;}
+  h1,h2,h3{font-family:'Literata', Georgia, serif;line-height:1.15;text-wrap:balance;margin:0;}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+  .ic{width:16px;height:16px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+  [hidden]{display:none !important;}
+
+  nav.top{position:sticky;top:0;z-index:6;background:color-mix(in srgb, var(--surface) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+  nav.top .wrap{display:flex;align-items:center;gap:8px;padding-block:10px;min-height:52px;}
+  nav.top .brand{font-family:'Literata', Georgia, serif;font-weight:600;font-size:16px;}
+  nav.top .share{margin-left:auto;}
+
+  header.page{padding-block:28px 6px;}
+  header.page .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;}
+  header.page h1{font-size:clamp(1.8rem, 5vw, 2.4rem);font-weight:600;margin-block:6px;}
+  header.page p{margin:0;color:var(--ink-soft);font-size:15px;}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px 18px 10px;margin-bottom:20px;}
+  .sec-h{font-size:1.2rem;font-weight:600;margin:0 0 4px;}
+  .sec-sub{margin:0 0 14px;font-size:13.5px;color:var(--ink-soft);}
+
+  /* Buttons */
+  .act{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--brand);font:inherit;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer;}
+  .act:hover{border-color:var(--brand);background:var(--brand-soft);}
+  .act:disabled{opacity:.4;cursor:default;}
+  .btn{border:none;border-radius:999px;padding:9px 18px;font:inherit;font-size:14px;font-weight:700;background:var(--brand);color:var(--surface);cursor:pointer;min-height:40px;}
+  .btn:disabled{opacity:.4;cursor:default;}
+  .ev-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .copy-btn .done{display:none;}
+  .copy-btn.copied{background:var(--brand);border-color:var(--brand);color:var(--surface);}
+  .copy-btn.copied .lbl{display:none;}
+  .copy-btn.copied .done{display:inline;}
+
+  /* Unlock */
+  .unlock-card{border-top:4px solid var(--brand);margin-top:18px;}
+  .unlock{display:flex;flex-direction:column;gap:8px;padding:2px 0 10px;font-size:14px;color:var(--ink-soft);}
+  .unlock .lock-title{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);}
+  .unlock-row{display:flex;gap:8px;}
+  .unlock input{flex:1;min-width:0;font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);}
+  .unlock-msg{font-size:13px;color:var(--lacquer);min-height:1.2em;}
+
+  /* View tabs */
+  .view-tabs{position:sticky;top:52px;z-index:5;display:flex;gap:4px;background:color-mix(in srgb, var(--paper) 94%, transparent);backdrop-filter:blur(6px);padding:8px 0;margin:10px 0 4px;}
+  .view-tabs button{flex:1;border:1px solid var(--line);background:var(--surface);font:inherit;font-size:14px;font-weight:700;padding:10px 6px;border-radius:12px;color:var(--ink-soft);cursor:pointer;white-space:nowrap;}
+  .view-tabs button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface);}
+  .view-tabs .tab-help{flex:0 0 44px;padding:10px 0;font-size:16px;color:var(--brand);}
+  .view-panel{margin-top:12px;}
+  @media (max-width:420px){ .view-tabs .tic{display:none;} .view-tabs button{font-size:13px;padding:9px 2px;} .view-tabs .tab-help{flex-basis:38px;} }
+
+  /* Trip strip: 1-15 Dec, one cell per day, coloured by city */
+  .strip{display:grid;grid-template-columns:repeat(15, 1fr);gap:2px;margin:6px 0 4px;}
+  .strip .cell{height:30px;border-radius:5px;background:var(--line);display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .strip .cell.c-hn{background:var(--c-hn);color:var(--surface);} .strip .cell.c-pq{background:var(--c-pq);color:var(--surface);} .strip .cell.c-sg{background:var(--c-sg);color:var(--surface);}
+  .strip .cell.split.c-hn-pq{background:linear-gradient(135deg, var(--c-hn) 50%, var(--c-pq) 50%);} .strip .cell.split.c-pq-hn{background:linear-gradient(135deg, var(--c-pq) 50%, var(--c-hn) 50%);}
+  .strip .cell.split.c-hn-sg{background:linear-gradient(135deg, var(--c-hn) 50%, var(--c-sg) 50%);} .strip .cell.split.c-sg-hn{background:linear-gradient(135deg, var(--c-sg) 50%, var(--c-hn) 50%);}
+  .strip .cell.split.c-pq-sg{background:linear-gradient(135deg, var(--c-pq) 50%, var(--c-sg) 50%);} .strip .cell.split.c-sg-pq{background:linear-gradient(135deg, var(--c-sg) 50%, var(--c-pq) 50%);}
+  .strip .cell.split{color:var(--surface);background:var(--brand);}
+  .strip-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:0;}
+  .dot.c-hn{background:var(--c-hn);} .dot.c-pq{background:var(--c-pq);} .dot.c-sg{background:var(--c-sg);}
+
+  /* Trip setup */
+  .leg{border:1px solid var(--line);border-left:5px solid var(--leg, var(--brand));border-radius:12px;padding:12px;margin-bottom:10px;background:var(--paper);display:flex;flex-direction:column;gap:8px;}
+  .leg.c-hn{--leg:var(--c-hn);} .leg.c-pq{--leg:var(--c-pq);} .leg.c-sg{--leg:var(--c-sg);}
+  .leg-top{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;}
+  .fld{display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .fld-l{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);}
+  .fld input, .fld select{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);width:100%;min-height:40px;}
+  .fld-grow{flex:1 1 160px;}
+  .leg-rm{margin-left:auto;}
+  .hint{font-size:12px;color:var(--ink-soft);}
+  .err{font-size:13px;color:var(--lacquer);background:var(--lacquer-soft);border-radius:8px;padding:6px 10px;}
+  .row-acts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 8px;align-items:center;}
+  .pin-st{font-size:13px;color:var(--ink-soft);}
+  .pin-st.ok{color:var(--brand);font-weight:600;}
+  .mini-map{height:220px;border-radius:10px;border:1px solid var(--line);overflow:hidden;}
+
+  /* Timeline */
+  .tl{list-style:none;margin:0;padding:0;}
+  .tl-day{display:grid;grid-template-columns:64px 1fr;gap:0 14px;padding-bottom:6px;}
+  .tl-day + .tl-day{border-top:1px solid var(--line);padding-top:14px;}
+  .tl-date{display:flex;flex-direction:column;align-items:center;line-height:1.1;padding-top:2px;}
+  .tl-date .dow{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);}
+  .tl-date .dnum{font-family:'Literata', Georgia, serif;font-size:1.55rem;font-weight:600;color:var(--day, var(--brand));font-variant-numeric:lining-nums;}
+  .tl-date .mon{font-size:12px;color:var(--ink-soft);}
+  .tl-day.c-hn{--day:var(--c-hn);} .tl-day.c-pq{--day:var(--c-pq);} .tl-day.c-sg{--day:var(--c-sg);}
+  .tl-city{font-size:12px;font-weight:700;color:var(--day, var(--brand));letter-spacing:.04em;text-transform:uppercase;margin:4px 0 8px;}
+  .tl-events{list-style:none;margin:0;padding:0;}
+  .ev{position:relative;display:grid;grid-template-columns:2.9rem 28px 1fr;gap:0 9px;padding-bottom:14px;}
+  .ev:not(:last-child)::before{content:"";position:absolute;left:calc(2.9rem + 9px + 13px);top:30px;bottom:2px;width:2px;background:var(--line);border-radius:2px;}
+  .ev-time{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;padding-top:5px;}
+  .ev-time-none{color:var(--ink-soft);font-weight:400;}
+  .ev-ic{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);font-size:14px;}
+  .ev-exc .ev-ic{background:var(--jade-soft);} .ev-food .ev-ic{background:var(--lacquer-soft);} .ev-bar .ev-ic{background:var(--wood-soft);} .ev-stay .ev-ic{background:var(--gold-soft);color:var(--gold);}
+  .ev-body{min-width:0;padding-top:4px;}
+  .ev-title{font-size:15px;font-weight:500;line-height:1.35;}
+  .ev-title strong{font-weight:700;}
+  .ev-meta{font-size:13px;color:var(--ink-soft);margin-top:2px;line-height:1.4;}
+  .tl-empty{font-size:13.5px;color:var(--ink-soft);margin:2px 0 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .tl-day.is-today{background:color-mix(in srgb, var(--brand-soft) 60%, transparent);border-radius:12px;margin-inline:-8px;padding-inline:8px;}
+  .today-badge{display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;color:var(--surface);background:var(--brand);border-radius:999px;padding:1px 7px;margin-bottom:3px;}
+  .badge{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 8px;margin-right:4px;vertical-align:1px;}
+  .badge-mi{color:var(--lacquer);background:var(--lacquer-soft);}
+  .badge-star{color:var(--gold);background:var(--gold-soft);}
+  .price{font-weight:600;color:var(--ink);}
+  .price.unv{font-weight:400;font-style:italic;color:var(--ink-soft);}
+  .note-mine{font-size:13px;color:var(--jade);font-weight:600;margin-top:3px;}
+
+  /* Planner */
+  .pl-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;}
+  .pl-status{font-size:12.5px;color:var(--brand);font-weight:600;}
+  .pl-datebar{display:flex;gap:6px;align-items:stretch;margin:4px 0 12px;position:sticky;top:112px;z-index:3;background:var(--surface);padding:6px 0;}
+  .pl-date{flex:1;min-width:0;font:inherit;font-size:15px;font-weight:700;padding:9px 10px;border:2px solid var(--brand);border-radius:12px;background:var(--surface);color:var(--ink);}
+  .pl-step{min-width:44px;justify-content:center;}
+  .pl-day-h{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+  .pl-day-h .dnum{font-family:'Literata', Georgia, serif;font-size:1.25rem;font-weight:600;}
+  .pl-city{font-size:12.5px;font-weight:700;color:var(--brand);}
+  .pl-row{display:grid;grid-template-columns:6.4rem 1fr;gap:4px 10px;align-items:start;padding:8px 0;border-top:1px solid var(--line);}
+  .pl-label{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);padding-top:9px;}
+  .pl-ctl{min-width:0;display:flex;flex-direction:column;gap:6px;}
+  .pick{border:1px solid var(--brand);border-radius:10px;padding:8px 10px;background:var(--surface);}
+  .pick-top{display:flex;gap:8px;align-items:center;}
+  .pick-name{flex:1;min-width:0;font-size:14px;font-weight:700;}
+  .pick input[type=time]{flex:0 0 auto;width:6.4rem;font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);}
+  .pick-rm{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--lacquer);font-size:16px;cursor:pointer;}
+  .pick-meta{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
+  .add-btn{align-self:flex-start;}
+  .picker{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:8px 10px 10px;max-height:min(60vh, 460px);overflow-y:auto;}
+  .picker-h{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);margin:10px 0 4px;}
+  .picker-h:first-child{margin-top:2px;}
+  .opt{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;border-radius:8px;cursor:pointer;font-size:14px;line-height:1.35;}
+  .opt:hover{background:var(--brand-soft);}
+  .opt input{width:20px;height:20px;margin:1px 0 0;flex:0 0 auto;accent-color:var(--brand);}
+  .opt-sub{display:block;font-size:12.5px;color:var(--ink-soft);}
+  .picker-foot{position:sticky;bottom:-10px;display:flex;flex-wrap:wrap;gap:8px;padding:8px 0 2px;background:var(--paper);}
+  .pl-warn{font-size:12.5px;color:var(--lacquer);background:var(--lacquer-soft);border-radius:8px;padding:6px 10px;margin:6px 0;}
+  .pl-none{font-size:13.5px;color:var(--ink-soft);padding:8px 0;}
+  details.box{border:1px solid var(--line);border-radius:12px;margin:14px 0 6px;background:var(--paper);}
+  details.box > summary{cursor:pointer;padding:10px 14px;font-weight:700;font-size:14px;}
+  details.box > div{padding:0 14px 12px;}
+  .mp-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);}
+  .mp-meta{font-size:12.5px;color:var(--ink-soft);}
+  .cf{border:1px solid var(--brand);border-radius:12px;padding:12px;margin-top:6px;background:var(--surface);display:flex;flex-direction:column;gap:8px;}
+  .cf-h{font-weight:700;font-size:14px;}
+  @media (max-width:560px){ .pl-row{grid-template-columns:1fr;} .pl-label{padding-top:0;} .tl-day{grid-template-columns:1fr;} .tl-date{flex-direction:row;align-items:baseline;gap:6px;margin-bottom:6px;} .tl-date .dnum{font-size:1.15rem;} .card{padding:16px 12px 8px;} .ev{grid-template-columns:2.7rem 26px 1fr;gap:0 8px;} .ev:not(:last-child)::before{left:calc(2.7rem + 8px + 12px);} }
+
+  /* Map */
+  .map-controls{display:flex;flex-direction:column;gap:8px;margin:8px 0 10px;}
+  .seg{display:inline-flex;gap:2px;background:var(--line);padding:3px;border-radius:999px;align-self:flex-start;flex-wrap:wrap;}
+  .seg button{border:none;background:none;font:inherit;font-size:13.5px;font-weight:700;padding:7px 14px;border-radius:999px;color:var(--ink-soft);cursor:pointer;min-height:36px;}
+  .seg button[aria-pressed="true"]{background:var(--surface);color:var(--brand);}
+  .chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:1px 0 2px;}
+  .chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;min-height:34px;}
+  .chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--surface);}
+  .chip .cnt{font-weight:500;margin-left:5px;}
+  .map-opt{font-size:13px;color:var(--ink-soft);display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;}
+  .map-opt label{display:flex;align-items:center;gap:6px;min-height:32px;cursor:pointer;}
+  .map-opt input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--brand);}
+  .map-opt select{font:inherit;font-size:14px;font-weight:600;padding:7px 10px;border:1px solid var(--brand);border-radius:10px;background:var(--surface);color:var(--ink);}
+  .is-raster .leaflet-tile-pane{filter:saturate(.62) brightness(1.06) contrast(.92);}
+  .leaflet-container{font-family:'Be Vietnam Pro', system-ui, sans-serif;}
+  .map-box{height:420px;border-radius:14px;border:1px solid var(--line);overflow:hidden;background:var(--paper);}
+  .map-count, .map-msg{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+  .map-pin-wrap{background:none;border:none;}
+  .map-pin{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--map-surface);border:2px solid var(--map-neutral);box-shadow:0 1px 4px rgb(0 0 0 / .3);color:var(--map-ink);font-size:13px;line-height:1;}
+  .map-pin.pin-food{border-color:var(--map-gold);} .map-pin.pin-bar{border-color:var(--map-wood);} .map-pin.pin-exc{border-color:var(--map-palm);}
+  .map-pin.pin-stay{border-color:var(--map-lacquer);background:var(--map-lacquer-soft);}
+  .map-pin.is-planned{transform:scale(1.18);box-shadow:0 0 0 3px var(--map-brand), 0 2px 6px rgb(0 0 0 / .35);}
+  .map-pin.pin-num{background:var(--map-brand);color:var(--map-surface);border-color:var(--map-surface);font-weight:700;font-size:12.5px;}
+  .map-pin.pin-num.pin-stay{background:var(--map-gold);}
+  .map-pop{min-width:190px;color:var(--map-ink);}
+  .map-pop-t{font-weight:700;font-size:14px;margin-bottom:2px;}
+  .map-pop-m{font-size:12.5px;color:var(--map-ink-soft);margin-bottom:2px;}
+  .map-pop .act{min-height:28px;padding:4px 9px;font-size:12px;background:var(--map-surface);color:var(--map-brand);border-color:var(--map-line);}
+  .route-list{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13.5px;}
+  .route-list li{display:flex;gap:8px;align-items:baseline;}
+  .route-list .n{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:50%;background:var(--brand);color:var(--surface);font-size:12px;font-weight:700;}
+  .route-list .n.stay{background:var(--gold);}
+  .route-list .h{font-weight:700;font-variant-numeric:tabular-nums;min-width:3rem;}
+  @media (max-width:560px){ .map-box{height:340px;} }
+
+  /* Pointer bubbles (first-visit tips) */
+  .tip{position:absolute;z-index:20;max-width:270px;background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 14px;box-shadow:0 8px 28px rgb(0 0 0 / .3);font-size:14px;line-height:1.4;}
+  .tip::before{content:"";position:absolute;top:-7px;left:var(--arrow, 24px);width:14px;height:14px;background:var(--ink);transform:rotate(45deg);border-radius:2px;}
+  .tip-n{font-size:12px;opacity:.7;margin-bottom:3px;}
+  .tip-acts{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;}
+  .tip-acts button{font:inherit;font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px;cursor:pointer;min-height:34px;}
+  .tip-skip{background:none;border:1px solid color-mix(in srgb, var(--paper) 40%, transparent);color:var(--paper);}
+  .tip-next{background:var(--paper);border:none;color:var(--ink);}
+  .tip-target{outline:3px solid var(--brand);outline-offset:3px;border-radius:12px;}
+
+  /* Info tab */
+  .info h3{font-size:1.05rem;margin:18px 0 6px;}
+  .info p, .info li{font-size:14.5px;line-height:1.5;}
+  .info ul{padding-left:20px;margin:4px 0 8px;}
+  .info a{color:var(--brand);font-weight:600;}
+  .info .src{font-size:12px;color:var(--ink-soft);}
+
+  footer{padding-block:24px 36px;text-align:center;font-size:13px;color:var(--ink-soft);}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;scroll-behavior:auto !important;}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Site">
+  <div class="wrap">
+    <span class="brand">Vietnam · 1–15 Dec</span>
+    <button type="button" class="act share" id="share-btn" data-testid="share" hidden>↗ Send the plan</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="page">
+    <div class="eyebrow">1 – 15 December 2026 · Vietnam</div>
+    <h1>Our Vietnam trip</h1>
+    <p>Hà Nội · Phú Quốc · Hồ Chí Minh City (Saigon). Local times (UTC+7).</p>
+  </header>
+
+  <div class="card unlock-card" id="unlock-card">
+    <form class="unlock" data-testid="unlock-form" autocomplete="off">
+      <span class="lock-title"><svg class="ic" viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="9" width="12" height="9" rx="2"/><path d="M7 9V6a3 3 0 0 1 6 0v3"/></svg>This page is private</span>
+      <label for="site-code">Enter the code Marius sent you. Your phone remembers it after the first time.</label>
+      <div class="unlock-row">
+        <input id="site-code" type="password" autocapitalize="none" spellcheck="false" placeholder="xxxx-xxxx-xxxx-xxxx" data-testid="unlock-input">
+        <button type="submit" class="btn">Unlock</button>
+      </div>
+      <span class="unlock-msg" role="status" aria-live="polite"></span>
+    </form>
+  </div>
+
+  <nav class="view-tabs" id="view-tabs" hidden aria-label="View">
+    <button type="button" data-view="itin" aria-pressed="true" data-testid="tab-itin"><span class="tic">📅 </span>Itinerary</button>
+    <button type="button" data-view="plan" aria-pressed="false" data-testid="tab-plan"><span class="tic">✏️ </span>Planner</button>
+    <button type="button" data-view="info" aria-pressed="false" data-testid="tab-info" hidden><span class="tic">ℹ️ </span>Info</button>
+    <button type="button" data-view="map" aria-pressed="false" data-testid="tab-map"><span class="tic">🗺️ </span>Map</button>
+    <button type="button" class="tab-help" data-testid="tips-open" aria-label="Show the tips again" title="Show the tips again">?</button>
+  </nav>
+
+  <section id="view-setup" class="view-panel" hidden></section>
+  <section id="view-itin" class="view-panel" hidden></section>
+  <section id="view-plan" class="view-panel" hidden></section>
+  <section id="view-info" class="view-panel card info" hidden></section>
+  <section id="view-map" class="view-panel" hidden></section>
+</main>
+
+<footer>Made by Marius · Vietnam local time (UTC+7)</footer>
+
+<script>
+(function(){
+  'use strict';
+  // ---------- small helpers ----------
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function store(k, v){ try { localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v)); } catch(e){} }
+  function load(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function loadJSON(k){ try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } }
+  function forget(k){ try { localStorage.removeItem(k); } catch(e){} }
+  function own(o, k){ return Object.prototype.hasOwnProperty.call(o, k); }
+  function copyText(t){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t);
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? res() : rej(); } catch(e){ rej(e); } finally { document.body.removeChild(ta); }
+    });
+  }
+  document.addEventListener('click', function(ev){
+    var btn = ev.target.closest('.copy-btn[data-copy]'); if (!btn) return;
+    var addr = btn.getAttribute('data-copy');
+    copyText(addr).then(function(){ btn.classList.add('copied'); setTimeout(function(){ btn.classList.remove('copied'); }, 1600); },
+      function(){ window.prompt('Copy this address:', addr); });
+  });
+
+  // ---------- the app: runs after unlock, all place data comes from the decrypted fragment ----------
+  var onMapShow = null;
+  function initApp(frag){
+    var D = JSON.parse(frag.querySelector('#vf-data').textContent);
+    var infoEl = frag.querySelector('#vf-info');
+    var FIRST = 1, LAST = 15;                                   // trip window: 1-15 Dec 2026
+    var CITY = {hn: 'Hà Nội', pq: 'Phú Quốc', sg: 'Saigon'};
+    var CITY_LONG = {hn: 'Hà Nội', pq: 'Phú Quốc', sg: 'Hồ Chí Minh City (Saigon)'};
+    var CITIES = ['hn', 'pq', 'sg'];
+    var CENTER = {hn: [[21.033, 105.85], 13], pq: [[10.23, 103.96], 11], sg: [[10.776, 106.70], 13]};
+    var SLOTS = ['exc', 'bf', 'lunch', 'dinner', 'bar'];
+    var SLOT = {exc: 'Activity', bf: 'Breakfast', lunch: 'Lunch', dinner: 'Dinner', bar: 'Coffee & bars'};
+    var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    function dow(d){ return DOW[new Date(2026, 11, d).getDay()]; }
+    function dayLabel(d){ return dow(d) + ' ' + d + ' Dec'; }
+    function mins(h){ var p = (h || '').split(':'); return p.length === 2 ? (+p[0]) * 60 + (+p[1]) : -1; }
+    function safeUrl(u){ u = String(u || '').trim(); return /^https?:\/\/[^\s"'<>]+$/i.test(u) ? u : ''; }
+    function okLL(ll){ return (Array.isArray(ll) && ll.length === 2 && isFinite(ll[0]) && isFinite(ll[1]) && ll[0] > 8 && ll[0] < 24 && ll[1] > 102 && ll[1] < 110) ? [+(+ll[0]).toFixed(6), +(+ll[1]).toFixed(6)] : null; }
+    // The exact pin from a long Google Maps link (place page, @lat,lng, ?q=lat,lng) or a pasted "lat, lng"
+    function pinFromLink(u){
+      u = String(u || '');
+      var m = u.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/) || u.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/) ||
+              u.match(/[?&](?:q|query|ll|destination|center)=(-?\d+\.\d+)(?:,|%2C)\s*(-?\d+\.\d+)/i) || u.match(/^\s*(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)\s*$/);
+      return m ? okLL([+m[1], +m[2]]) : null;
+    }
+    function cityOfLL(ll){
+      var best = null, bd = 1e9;
+      CITIES.forEach(function(c){ var p = CENTER[c][0], d = Math.abs(ll[0] - p[0]) + Math.abs(ll[1] - p[1]); if (d < bd) { bd = d; best = c; } });
+      return best;
+    }
+
+    // ---------- catalogue + custom places ----------
+    var byId = {};
+    function index(){ byId = {}; D.items.forEach(function(it){ byId[it.i] = it; }); }
+    function sanitizeCustom(x){
+      if (!x || typeof x !== 'object') return null;
+      var tt = x.t === 'exc' || x.t === 'food' ? x.t : null;
+      var n = String(x.n || '').trim().slice(0, 80);
+      var it = {i: +x.i, c: CITIES.indexOf(x.c) >= 0 ? x.c : 'hn', t: tt, n: n, custom: true};
+      if (!tt || !n || !(it.i >= 1000 && it.i < 100000)) return null;
+      if (tt === 'food') it.k = own(D.foodCats, x.k) ? x.k : 'vn';
+      if (tt === 'exc') it.d = own(D.excGroups, x.d) ? x.d : 'half';
+      it.e = tt === 'food' ? D.foodCats[it.k][0] : '📌';
+      var m = safeUrl(x.m), b = safeUrl(x.b), a = String(x.a || '').trim().slice(0, 160), ll = okLL(x.ll);
+      if (m) it.m = m; if (b) it.b = b; if (a) it.a = a; if (ll) it.ll = ll;
+      return it;
+    }
+    function compactCustom(it){ var o = {i: it.i, c: it.c, t: it.t, n: it.n}; ['k', 'd', 'm', 'b', 'a', 'll'].forEach(function(k){ if (it[k] != null) o[k] = it[k]; }); return o; }
+    var customs = [];
+    function setCustoms(list){ customs = list; D.items = D.items.filter(function(it){ return !it.custom; }).concat(customs); index(); }
+    function saveCustoms(){ store('vf-custom', customs.map(compactCustom)); }
+    setCustoms((function(){ var a = loadJSON('vf-custom'); return (Array.isArray(a) ? a : []).map(sanitizeCustom).filter(Boolean); })());
+    function nextCustomId(){ var mx = 999; customs.forEach(function(c){ if (c.i > mx) mx = c.i; }); return mx + 1; }
+    function emoji(it){ return it.e || (it.t === 'food' && D.foodCats[it.k] ? D.foodCats[it.k][0] : '📌'); }
+    function group(it){ return it.t === 'exc' ? 'exc' : (it.k === 'bar' || it.k === 'cafe') ? 'bar' : 'food'; }
+
+    // ---------- trip setup: legs = [{c, a: arrival day, d: departure day, n: stay, m: stay link, ll, f: flight note}] ----------
+    function sanitizeLeg(x){
+      if (!x || typeof x !== 'object' || CITIES.indexOf(x.c) < 0) return null;
+      var a = Math.round(+x.a), d = Math.round(+x.d);
+      if (!(a >= FIRST && a <= LAST && d >= a && d <= LAST)) return null;
+      var l = {c: x.c, a: a, d: d}, n = String(x.n || '').trim().slice(0, 80), m = safeUrl(x.m), f = String(x.f || '').trim().slice(0, 60), ll = okLL(x.ll);
+      if (n) l.n = n; if (m) l.m = m; if (f) l.f = f; if (ll) l.ll = ll;
+      return l;
+    }
+    function checkTrip(legs){
+      var errs = [];
+      if (!legs.length) errs.push('Add at least one city.');
+      var s = legs.slice().sort(function(x, y){ return x.a - y.a || x.d - y.d; });
+      for (var k = 1; k < s.length; k++) {
+        if (s[k].a < s[k - 1].d) errs.push(CITY[s[k - 1].c] + ' (' + s[k - 1].a + '–' + s[k - 1].d + ' Dec) and ' + CITY[s[k].c] + ' (' + s[k].a + '–' + s[k].d + ' Dec) overlap. The day you leave one city can be the day you arrive in the next, nothing more.');
+      }
+      return errs;
+    }
+    var trip = (function(){ var t = loadJSON('vf-trip'); var legs = (t && Array.isArray(t.legs) ? t.legs : []).map(sanitizeLeg).filter(Boolean); return legs.length && !checkTrip(legs).length ? {legs: legs} : null; })();
+    function sortLegs(){ trip.legs.sort(function(x, y){ return x.a - y.a; }); }
+    function saveTrip(){ store('vf-trip', trip); }
+    // What a day looks like: which city each slot is in. A travel day (leave one city, arrive in the next):
+    // breakfast and lunch in the old city, dinner and bar in the new one, no activity.
+    function dayInfo(day){
+      if (!trip) return null;
+      var on = trip.legs.filter(function(l){ return l.a <= day && day <= l.d; });
+      if (!on.length) return null;
+      if (on.length === 1) {
+        var l = on[0], sc = {}; SLOTS.forEach(function(s){ sc[s] = l.c; });
+        return {day: day, c: l.c, sc: sc, legs: on};
+      }
+      var from = on[0], to = on[on.length - 1];
+      return {day: day, c: to.c, from: from.c, sc: {bf: from.c, lunch: from.c, dinner: to.c, bar: to.c}, legs: on, travel: true};
+    }
+    function tripDays(){ var out = []; for (var d = FIRST; d <= LAST; d++) if (dayInfo(d)) out.push(d); return out; }
+    function cityLabel(di){ return di.travel ? CITY[di.from] + ' → ' + CITY[di.c] : CITY[di.c]; }
+    function tripCities(){ var out = []; (trip ? trip.legs : []).forEach(function(l){ if (out.indexOf(l.c) < 0) out.push(l.c); }); return out.length ? out : CITIES.slice(); }
+
+    // ---------- plans: {day: {slot: [{i, h}]}}, several places per slot ----------
+    function fits(sl, it, city){
+      if (!it || it.c !== city) return false;
+      if (sl === 'exc') return it.t === 'exc';
+      if (it.t !== 'food') return false;
+      return sl === 'bar' ? (it.k === 'bar' || it.k === 'cafe') : it.k !== 'bar';
+    }
+    function cleanPlans(p){
+      var out = {};
+      Object.keys(p || {}).forEach(function(day){
+        var dn = +day; if (!(dn >= FIRST && dn <= LAST) || !p[day] || typeof p[day] !== 'object') return;
+        SLOTS.forEach(function(sl){
+          var arr = Array.isArray(p[day][sl]) ? p[day][sl] : [];
+          var seen = {}, list = [];
+          arr.slice(0, 12).forEach(function(v){
+            var id = v && +v.i; if (!byId[id] || seen[id]) return; seen[id] = 1;
+            list.push({i: id, h: (v && /^\d\d:\d\d$/.test(v.h)) ? v.h : D.times[sl]});
+          });
+          if (list.length) (out[dn] = out[dn] || {})[sl] = list;
+        });
+      });
+      return out;
+    }
+    var plans = cleanPlans(loadJSON('vf-plan'));
+    function savePlans(){ store('vf-plan', plans); }
+    // Entries stay on their date when the trip changes; only those that fit the day's city now are shown
+    function shown(day, sl){ var di = dayInfo(day), arr = (plans[day] || {})[sl] || []; if (!di || !di.sc[sl]) return []; return arr.filter(function(v){ return fits(sl, byId[v.i], di.sc[sl]); }); }
+    function stale(day){
+      var out = []; SLOTS.forEach(function(sl){ var ok = shown(day, sl); ((plans[day] || {})[sl] || []).forEach(function(v){ if (ok.indexOf(v) < 0) out.push({sl: sl, v: v}); }); });
+      return out;
+    }
+    function setSlot(day, sl, list){
+      if (list.length) { (plans[day] = plans[day] || {})[sl] = list; }
+      else if (plans[day]) { delete plans[day][sl]; if (!Object.keys(plans[day]).length) delete plans[day]; }
+      savePlans();
+    }
+    // A second place in the same slot starts an hour after the latest one, so times do not collide
+    function nextTime(list, sl){
+      if (!list.length) return D.times[sl];
+      var m = Math.min(23 * 60 + 30, Math.max.apply(null, list.map(function(v){ return mins(v.h); })) + 60);
+      return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + m % 60).slice(-2);
+    }
+    function dayCount(day){ var n = 0; SLOTS.forEach(function(sl){ n += shown(day, sl).length; }); return n; }
+    function usedOn(id){ var out = []; tripDays().forEach(function(d){ SLOTS.forEach(function(sl){ shown(d, sl).forEach(function(v){ if (v.i === id && out.indexOf(d) < 0) out.push(d); }); }); }); return out; }
+    // A 2-day excursion also fills the next day
+    function spillFrom(day){
+      var prev = day - 1; if (!dayInfo(prev)) return null;
+      var hit = null; shown(prev, 'exc').forEach(function(v){ if (byId[v.i].d === '2d') hit = byId[v.i]; });
+      return hit;
+    }
+    function warnings(day){
+      var w = [], di = dayInfo(day), all = [];
+      SLOTS.forEach(function(sl){ shown(day, sl).forEach(function(v){ all.push({sl: sl, v: v}); }); });
+      shown(day, 'exc').forEach(function(v){
+        if (byId[v.i].d !== '2d') return;
+        var nx = dayInfo(day + 1);
+        if (!nx || nx.travel || nx.c !== di.c) w.push(byId[v.i].n + ' takes 2 days, but the next day you are not in ' + CITY[di.c] + '.');
+        else if (shown(day + 1, 'exc').length) w.push(byId[v.i].n + ' also takes the next day, where an activity is already planned.');
+      });
+      if (spillFrom(day) && shown(day, 'exc').length) w.push('This day is day 2 of ' + spillFrom(day).n + '.');
+      var full = shown(day, 'exc').filter(function(v){ var d = byId[v.i].d; return d === 'full' || d === '2d'; });
+      if (full.length > 1) w.push('Two full-day activities on the same day.');
+      var ids = {}; all.forEach(function(x){ if (ids[x.v.i]) w.push(byId[x.v.i].n + ' is in the plan twice this day.'); ids[x.v.i] = 1; });
+      var s = all.slice().sort(function(a, b){ return mins(a.v.h) - mins(b.v.h); });
+      for (var k = 1; k < s.length; k++) if (mins(s[k].v.h) - mins(s[k - 1].v.h) < 30) w.push(s[k - 1].v.h + ' ' + byId[s[k - 1].v.i].n + ' and ' + s[k].v.h + ' ' + byId[s[k].v.i].n + ' are less than 30 minutes apart.');
+      return w;
+    }
+
+    // ---------- share link: trip + plan + own places in the URL fragment (never sent to a server) ----------
+    function encode(){
+      var e = [];
+      Object.keys(plans).forEach(function(day){ SLOTS.forEach(function(sl, si){ ((plans[day] || {})[sl] || []).forEach(function(v){ e.push([+day, si, v.i, +v.h.replace(':', '')]); }); }); });
+      var payload = {v: 1, t: trip ? trip.legs : [], p: e};
+      if (customs.length) payload.c = customs.map(compactCustom);
+      return btoa(unescape(encodeURIComponent(JSON.stringify(payload)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+    function decode(str){
+      var j = JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, '+').replace(/_/g, '/')))));
+      if (!j || typeof j !== 'object' || j.v !== 1) throw new Error('unknown link');
+      var p = Object.create(null);  // a "__proto__" day key stays an own key instead of reaching Object.prototype
+      (Array.isArray(j.p) ? j.p : []).slice(0, 400).forEach(function(x){
+        if (!Array.isArray(x)) return;
+        var sl = SLOTS[x[1]]; if (!sl) return;
+        var h = ('0' + Math.floor(x[3] / 100)).slice(-2) + ':' + ('0' + x[3] % 100).slice(-2);
+        var day = String(x[0]); p[day] = p[day] || Object.create(null); (p[day][sl] = p[day][sl] || []).push({i: x[2], h: h});
+      });
+      var legs = (Array.isArray(j.t) ? j.t : []).slice(0, 10).map(sanitizeLeg).filter(Boolean);
+      return {legs: legs, p: p, c: Array.isArray(j.c) ? j.c.slice(0, 50).map(sanitizeCustom).filter(Boolean) : []};
+    }
+    var hm = location.hash.match(/^#plan=([A-Za-z0-9_-]+)$/);
+    if (hm) {
+      try {
+        var got = decode(hm[1]);
+        if (confirm('Load the trip and plan from this link? What is on this phone now will be replaced.')) {
+          setCustoms(got.c); saveCustoms();
+          if (got.legs.length && !checkTrip(got.legs).length) { trip = {legs: got.legs}; sortLegs(); saveTrip(); }
+          plans = cleanPlans(got.p); savePlans();
+        }
+      } catch(e){ alert('This plan link is broken or from an older version.'); }
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    function shareLink(){
+      var url = location.origin + location.pathname + '#plan=' + encode();
+      if (navigator.share) navigator.share({title: 'Our Vietnam plan', url: url}).catch(function(){});
+      else copyText(url).then(function(){ flash('Link copied. Send it only to the three of you.'); }, function(){ window.prompt('Copy the link:', url); });
+    }
+
+    // ---------- shared bits of UI ----------
+    function actLink(box, href, ico, txt){ var x = el('a', 'act'); x.href = href; x.target = '_blank'; x.rel = 'noopener'; x.append(el('span', null, ico), el('span', null, ' ' + txt)); box.appendChild(x); }
+    function actCopy(box, addr){
+      var cb = el('button', 'act copy-btn'); cb.type = 'button'; cb.dataset.copy = addr; cb.title = 'Copy the address for Grab';
+      var lbl = el('span', 'lbl', '⧉ Copy address'), done = el('span', 'done', '✓ Copied'); cb.append(lbl, done); box.appendChild(cb);
+    }
+    function links(it){
+      var box = el('div', 'ev-actions');
+      if (it.m) actLink(box, it.m, '📍', 'Map');
+      if (it.a) actCopy(box, it.a);
+      if (it.b) actLink(box, it.b, '↗', 'Book');
+      (it.x || []).forEach(function(x){ actLink(box, x[2], x[0], x[1]); });
+      return box;
+    }
+    function badges(it){
+      var box = el('div', 'pick-meta');
+      if (it.s) box.appendChild(el('span', 'badge badge-star', '⭐ Marius'));
+      if (it.mi) box.appendChild(el('span', 'badge badge-mi', 'Michelin ' + it.mi));
+      if (it.t === 'food' && !it.custom) {
+        var pr = it.p ? (it.pu ? it.p + ' · price unverified' : it.p) : 'price unverified';
+        box.appendChild(el('span', 'price' + (it.pu || !it.p ? ' unv' : ''), pr));
+      }
+      if (it.en) box.appendChild(document.createTextNode((box.childNodes.length ? ' · ' : '') + it.en));
+      if (it.ax) box.appendChild(document.createTextNode(' · pin approximate'));
+      return box;
+    }
+    function stayLinks(l){
+      var box = el('div', 'ev-actions');
+      if (l.m) actLink(box, l.m, '📍', 'Map');
+      if (l.n) actCopy(box, l.n + ', ' + CITY_LONG[l.c]);
+      return box.childNodes.length ? box : null;
+    }
+    var statusMsg = null;
+    function flash(m){ statusMsg = m; renderPlanner(); setTimeout(function(){ if (statusMsg === m) { statusMsg = null; renderPlanner(); } }, 4000); }
+
+    // Pin chooser for a stay or an own place: long Google link → pin, else tap on a small map
+    function pinField(state, city, onPin){
+      var wrap = el('div', 'fld');
+      var st = el('div', 'pin-st'), btn = el('button', 'act', '📍 Place on map'); btn.type = 'button';
+      var mini = el('div', 'mini-map'); mini.hidden = true;
+      var mm = null, mk = null;
+      function show(){
+        st.className = 'pin-st' + (state.ll ? ' ok' : '');
+        st.textContent = state.ll ? '📍 Pin set ✓' + (cityOfLL(state.ll) !== city() ? ' ⚠ it looks like another city' : '')
+          : (state.m ? 'This link has no pin (short link?). Use "Place on map".' : 'No pin yet: paste a long Google Maps link or use "Place on map".');
+      }
+      function marker(){ if (!mm || !state.ll) return; if (mk) mk.setLatLng(state.ll); else mk = L.marker(state.ll).addTo(mm); }
+      btn.addEventListener('click', function(){
+        mini.hidden = false; st.textContent = 'Tap the map exactly where the place is.';
+        loadLeaflet(function(){
+          if (mm) { mm.invalidateSize(); return; }
+          mm = L.map(mini, {scrollWheelZoom: false, zoomControl: false}); L.control.zoom({position: 'bottomright'}).addTo(mm); baseLayer(mm);
+          if (state.ll) { mm.setView(state.ll, 16); marker(); } else mm.setView(CENTER[city()][0], CENTER[city()][1] + 1);
+          mm.on('click', function(e){ state.ll = okLL([e.latlng.lat, e.latlng.lng]); marker(); show(); onPin(); });
+        });
+      });
+      wrap.append(st, btn, mini);
+      show();
+      return {node: wrap, linkChanged: function(){ var ll = pinFromLink(state.m); if (ll) { state.ll = ll; if (mm) { marker(); mm.setView(ll, 16); } onPin(); } show(); }, refresh: show};
+    }
+    function field(box, label, input, hint){ var w = el('label', 'fld'); w.appendChild(el('span', 'fld-l', label)); w.appendChild(input); if (hint) w.appendChild(el('span', 'hint', hint)); box.appendChild(w); return input; }
+    function inp(type, val, ph){ var i = el('input'); i.type = type; i.value = val || ''; if (ph) i.placeholder = ph; return i; }
+    function daySelect(val, from){ var s = el('select'); for (var d = from || FIRST; d <= LAST; d++) { var o = new Option(dayLabel(d), d); if (d === val) o.selected = true; s.appendChild(o); } return s; }
+
+    // ---------- trip strip ----------
+    function strip(legs){
+      var box = el('div'), g = el('div', 'strip'); g.setAttribute('role', 'img');
+      var desc = [];
+      for (var d = FIRST; d <= LAST; d++) {
+        var on = legs.filter(function(l){ return l.a <= d && d <= l.d; }), c = el('div', 'cell', String(d));
+        if (on.length === 1) c.classList.add('c-' + on[0].c);
+        else if (on.length > 1) c.classList.add('split', 'c-' + on[0].c + '-' + on[on.length - 1].c);
+        c.title = dayLabel(d) + (on.length ? ' · ' + on.map(function(l){ return CITY[l.c]; }).join(' → ') : ' · not set');
+        g.appendChild(c);
+      }
+      legs.forEach(function(l){ desc.push(CITY[l.c] + ' ' + l.a + '–' + l.d + ' Dec'); });
+      g.setAttribute('aria-label', 'Trip 1 to 15 December: ' + (desc.join(', ') || 'no cities yet'));
+      var lg = el('div', 'strip-legend');
+      legs.forEach(function(l){ var s = el('span'); s.append(el('span', 'dot c-' + l.c), document.createTextNode(CITY[l.c] + ' ' + l.a + '–' + l.d + ' Dec')); lg.appendChild(s); });
+      box.append(g, lg);
+      return box;
+    }
+
+    // ---------- Trip setup view ----------
+    var setupEl = document.getElementById('view-setup');
+    var draft = null;
+    function openSetup(){
+      draft = trip ? JSON.parse(JSON.stringify(trip.legs)) : [{c: 'hn', a: 1, d: 5}, {c: 'pq', a: 5, d: 10}, {c: 'sg', a: 10, d: 15}];
+      setView('setup'); renderSetup();
+    }
+    function renderSetup(){
+      setupEl.replaceChildren();
+      var card = el('div', 'card'); setupEl.appendChild(card);
+      card.append(el('h2', 'sec-h', 'Trip setup'), el('p', 'sec-sub', 'For each city: the day you arrive, the day you leave, and where you stay. You can change it any time; what you already planned stays on its date.'));
+      var stripBox = el('div'); card.appendChild(stripBox);
+      function paintStrip(){ stripBox.replaceChildren(strip(draft.filter(function(l){ return l.a <= l.d; }))); }
+      paintStrip();
+      var errBox = el('div');
+      draft.forEach(function(l, idx){
+        var box = el('div', 'leg c-' + l.c); box.dataset.testid = 'leg-' + idx;
+        var top = el('div', 'leg-top');
+        var cs = el('select'); CITIES.forEach(function(c){ var o = new Option(CITY_LONG[c], c); if (c === l.c) o.selected = true; cs.appendChild(o); });
+        field(top, 'City', cs).parentNode.classList.add('fld-grow');
+        var a = field(top, 'Arrive', daySelect(l.a)); a.dataset.testid = 'leg-arrive';
+        var d = field(top, 'Leave', daySelect(l.d)); d.dataset.testid = 'leg-leave';
+        var rm = el('button', 'act leg-rm', '✕ Remove'); rm.type = 'button';
+        rm.addEventListener('click', function(){ draft.splice(idx, 1); renderSetup(); });
+        top.appendChild(rm);
+        box.appendChild(top);
+        var sn = field(box, 'Where you stay (optional)', inp('text', l.n, 'hotel or apartment name')); sn.maxLength = 80; sn.dataset.testid = 'leg-stay';
+        var sm = field(box, 'Google Maps link of the stay (optional)', inp('url', l.m, 'https://www.google.com/maps/place/…'), 'For an exact pin, open the place in a browser and copy the long link from the address bar.');
+        var pf = pinField(l, function(){ return l.c; }, function(){});
+        box.appendChild(pf.node);
+        var fl = field(box, 'Flight in (optional)', inp('text', l.f, 'e.g. VN 1234 · lands 14:30')); fl.maxLength = 60;
+        cs.addEventListener('change', function(){ l.c = cs.value; box.className = 'leg c-' + l.c; paintStrip(); pf.refresh(); });
+        a.addEventListener('change', function(){ l.a = +a.value; if (l.d < l.a) { l.d = l.a; d.value = l.a; } paintStrip(); });
+        d.addEventListener('change', function(){ l.d = +d.value; if (l.d < l.a) { l.a = l.d; a.value = l.d; } paintStrip(); });
+        sn.addEventListener('input', function(){ l.n = sn.value; });
+        sm.addEventListener('input', function(){ l.m = sm.value.trim(); pf.linkChanged(); });
+        fl.addEventListener('input', function(){ l.f = fl.value; });
+        card.appendChild(box);
+      });
+      var acts = el('div', 'row-acts');
+      var add = el('button', 'act', '＋ Add a city'); add.type = 'button';
+      add.addEventListener('click', function(){ var last = draft[draft.length - 1]; var st = last ? last.d : FIRST; draft.push({c: 'hn', a: st, d: Math.min(LAST, st + 2)}); renderSetup(); });
+      acts.appendChild(add); card.appendChild(acts);
+      card.appendChild(errBox);
+      var foot = el('div', 'row-acts');
+      var save = el('button', 'btn', 'Save trip'); save.type = 'button'; save.dataset.testid = 'setup-save';
+      save.addEventListener('click', function(){
+        var legs = draft.map(sanitizeLeg).filter(Boolean), errs = checkTrip(legs);
+        if (draft.some(function(l){ return safeUrl(l.m) !== String(l.m || '').trim(); })) errs.push('A Google Maps link must start with https://');
+        errBox.replaceChildren(); errs.forEach(function(e){ errBox.appendChild(el('p', 'err', e)); });
+        if (errs.length) { errBox.scrollIntoView({block: 'center'}); return; }
+        var first = !trip;
+        trip = {legs: legs}; sortLegs(); saveTrip(); draft = null;
+        renderAll(); setView('itin');
+        if (first) startTips(false);
+      });
+      foot.appendChild(save);
+      if (trip) { var cn = el('button', 'act', 'Cancel'); cn.type = 'button'; cn.addEventListener('click', function(){ draft = null; setView('plan'); }); foot.appendChild(cn); }
+      card.appendChild(foot);
+    }
+
+    // ---------- Itinerary view ----------
+    var itinEl = document.getElementById('view-itin');
+    function todayDay(){
+      var q = location.search.match(/[?&]today=(\d{4})-(\d{2})-(\d{2})/), y, mo, d;
+      if (q) { y = +q[1]; mo = +q[2]; d = +q[3]; } else { var n = new Date(); y = n.getFullYear(); mo = n.getMonth() + 1; d = n.getDate(); }
+      return y === 2026 && mo === 12 && d >= FIRST && d <= LAST ? d : null;
+    }
+    var TODAY = todayDay(), scrolledToday = false;
+    function tlEvent(time, sortMin, kind, ic, titleText, metaNode, actions){
+      var li = el('li', 'ev ev-' + kind);
+      li.appendChild(time ? el('span', 'ev-time', time) : el('span', 'ev-time ev-time-none', '·'));
+      li.appendChild(el('span', 'ev-ic', ic));
+      var body = el('div', 'ev-body'), title = el('div', 'ev-title'); title.appendChild(el('strong', null, titleText)); body.appendChild(title);
+      if (metaNode) body.appendChild(metaNode);
+      if (actions) body.appendChild(actions);
+      li.appendChild(body);
+      return {s: sortMin, node: li};
+    }
+    function renderItin(){
+      itinEl.replaceChildren();
+      var card = el('div', 'card'); itinEl.appendChild(card);
+      card.append(el('h2', 'sec-h', 'Your days'));
+      if (!trip) { card.append(el('p', 'sec-sub', 'Set up the trip first: cities, dates and where you stay.')); var b = el('button', 'btn', 'Trip setup'); b.type = 'button'; b.addEventListener('click', openSetup); card.append(b, el('p')); return; }
+      card.appendChild(strip(trip.legs));
+      var firstSg = trip.legs.filter(function(x){ return x.c === 'sg'; })[0];  // "Hồ Chí Minh City (Saigon)" once, then "Saigon"
+      var ol = el('ol', 'tl');
+      tripDays().forEach(function(day){
+        var di = dayInfo(day), evs = [];
+        trip.legs.forEach(function(l){
+          if (l.a === day && di.legs.indexOf(l) >= 0) {
+            var meta = el('div', 'ev-meta', (l.f ? 'Flight: ' + l.f + ' · ' : '') + (l.n ? 'Stay: ' + l.n : 'Stay not set yet'));
+            evs.push(tlEvent('', l.f ? 1 : 900, 'stay', '🛬', 'Arrive in ' + (l === firstSg ? CITY_LONG.sg : CITY[l.c]), meta, stayLinks(l)));
+          }
+          if (l.d === day && l.a !== day) evs.push(tlEvent('', di.travel ? 600 : 1300, 'stay', '🧳', 'Leave ' + CITY[l.c], null, null));
+        });
+        var sp = spillFrom(day);
+        if (sp) evs.push(tlEvent('', 0, 'exc', sp.e, '↳ ' + sp.n + ' (day 2)', null, null));
+        SLOTS.forEach(function(sl){
+          shown(day, sl).forEach(function(v){
+            var it = byId[v.i], meta = badges(it);
+            meta.insertBefore(document.createTextNode(SLOT[sl] + ' · '), meta.firstChild);
+            evs.push(tlEvent(v.h, mins(v.h), group(it), emoji(it), it.n, meta, links(it)));
+          });
+        });
+        var li = el('li', 'tl-day c-' + di.c + (day === TODAY ? ' is-today' : '')); li.dataset.day = day;
+        var date = el('div', 'tl-date');
+        if (day === TODAY) date.appendChild(el('span', 'today-badge', 'Today'));
+        date.append(el('span', 'dow', dow(day)), el('span', 'dnum', String(day)), el('span', 'mon', 'Dec'));
+        var right = el('div'); right.appendChild(el('div', 'tl-city', cityLabel(di)));
+        evs.sort(function(a, b){ return a.s - b.s; });
+        var list = el('ol', 'tl-events'); evs.forEach(function(x){ list.appendChild(x.node); });
+        right.appendChild(list);
+        if (!dayCount(day) && !sp) {
+          var em = el('div', 'tl-empty'); em.appendChild(document.createTextNode('Nothing planned yet.'));
+          var pb = el('button', 'act', '✏️ Plan this day'); pb.type = 'button'; pb.addEventListener('click', function(){ curDay = day; store('vf-day', String(day)); renderPlanner(); setView('plan'); });
+          em.appendChild(pb); right.appendChild(em);
+        }
+        li.append(date, right); ol.appendChild(li);
+      });
+      card.appendChild(ol);
+    }
+
+    // ---------- Planner view ----------
+    var planEl = document.getElementById('view-plan');
+    var curDay = +load('vf-day') || null, openPicker = null, addForm = null, mineOpen = false;
+    function pickDay(){
+      var days = tripDays(); if (!days.length) { curDay = null; return; }
+      if (curDay && days.indexOf(curDay) >= 0) return;
+      if (TODAY && days.indexOf(TODAY) >= 0) { curDay = TODAY; return; }
+      var nx = null; days.forEach(function(d){ if (!nx && curDay && d >= curDay) nx = d; }); curDay = nx || days[0];
+    }
+    function pickerPanel(day, sl, city){
+      var box = el('div', 'picker'); box.dataset.testid = 'picker-' + sl;
+      var cur = shown(day, sl), on = {}; cur.forEach(function(v){ on[v.i] = 1; });
+      var pool = D.items.filter(function(it){ return fits(sl, it, city); });
+      var groups = sl === 'exc' ? Object.keys(D.excGroups).map(function(k){ return [D.excGroups[k], pool.filter(function(it){ return it.d === k; })]; })
+        : Object.keys(D.foodCats).map(function(k){ return [D.foodCats[k][0] + ' ' + D.foodCats[k][1], pool.filter(function(it){ return it.k === k; })]; });
+      var any = false;
+      groups.forEach(function(g){
+        if (!g[1].length) return; any = true;
+        box.appendChild(el('div', 'picker-h', g[0]));
+        g[1].forEach(function(it){
+          var lab = el('label', 'opt'), cb = el('input'); cb.type = 'checkbox'; cb.checked = !!on[it.i]; cb.dataset.id = it.i;
+          var txt = el('span'); txt.appendChild(document.createTextNode(emoji(it) + ' ' + it.n + (it.s ? ' ⭐' : '')));
+          var subParts = []; if (it.mi) subParts.push('Michelin ' + it.mi); if (it.t === 'food' && it.p && !it.pu) subParts.push(it.p); if (it.en) subParts.push(it.en);
+          var u = usedOn(it.i).filter(function(d){ return d !== day; }); if (u.length) subParts.push('also on ' + u.map(function(d){ return d + ' Dec'; }).join(', '));
+          if (subParts.length) txt.appendChild(el('span', 'opt-sub', subParts.join(' · ')));
+          cb.addEventListener('change', function(){
+            var list = ((plans[day] || {})[sl] || []).slice();
+            if (cb.checked) { if (!list.some(function(v){ return v.i === it.i; })) list.push({i: it.i, h: nextTime(list, sl)}); }
+            else list = list.filter(function(v){ return v.i !== it.i; });
+            setSlot(day, sl, list); renderItin(); if (mapApi) mapApi.refresh();
+            refreshRow();
+          });
+          lab.append(cb, txt); box.appendChild(lab);
+        });
+      });
+      if (!any) box.appendChild(el('p', 'pl-none', sl === 'exc' && city === 'sg' ? 'No activities listed for Saigon yet. Add your own below.' : 'Nothing listed here yet. Add your own below.'));
+      var foot = el('div', 'picker-foot');
+      var own_ = el('button', 'act', '➕ Add another place…'); own_.type = 'button';
+      own_.addEventListener('click', function(){ addForm = {day: day, sl: sl, city: city, cat: sl === 'exc' ? 'exc' : 'food', n: '', m: '', b: '', k: sl === 'bar' ? 'bar' : 'vn', d: 'half', a: '', ll: null, aTouched: false}; openPicker = null; renderPlanner(); });
+      var done = el('button', 'btn', 'Done'); done.type = 'button'; done.dataset.testid = 'picker-done';
+      done.addEventListener('click', function(){ openPicker = null; renderPlanner(); });
+      foot.append(done, own_); box.appendChild(foot);
+      var refreshRow = function(){ var y = window.scrollY; var keep = box.scrollTop; renderPlanner(); var nb = planEl.querySelector('[data-testid="picker-' + sl + '"]'); if (nb) nb.scrollTop = keep; window.scrollTo(0, y); };
+      return box;
+    }
+    function customForm(){
+      var f = addForm, box = el('div', 'cf'); box.dataset.testid = 'custom-form';
+      box.appendChild(el('div', 'cf-h', (f.editId ? 'Edit place' : 'Add a new place') + ' · ' + CITY[f.city]));
+      var name = field(box, 'Name *', inp('text', f.n, 'e.g. Bánh Mì 25')); name.maxLength = 80; name.dataset.testid = 'cf-name';
+      var gl = field(box, 'Google Maps link', inp('url', f.m, 'https://www.google.com/maps/place/…'), 'For an exact pin, copy the long link from the browser address bar. The short "Share" link works only for the Map button.');
+      var kl = field(box, 'Booking link (Klook etc.)', inp('url', f.b, 'https://…'));
+      var kind = el('select');
+      if (f.cat === 'food') { Object.keys(D.foodCats).forEach(function(k){ var o = new Option(D.foodCats[k][0] + ' ' + D.foodCats[k][1], k); if (f.k === k) o.selected = true; kind.appendChild(o); }); field(box, 'Type', kind); }
+      else { Object.keys(D.excGroups).forEach(function(k){ var o = new Option(D.excGroups[k], k); if (f.d === k) o.selected = true; kind.appendChild(o); }); field(box, 'Duration', kind); }
+      var addr = field(box, 'Address for Grab', inp('text', f.a, 'filled from the name')); addr.maxLength = 160;
+      var pf = pinField(f, function(){ return f.city; }, function(){}); box.appendChild(pf.node);
+      name.addEventListener('input', function(){ f.n = name.value; if (!f.aTouched) { f.a = name.value.trim() ? name.value.trim() + ', ' + CITY_LONG[f.city] : ''; addr.value = f.a; } });
+      gl.addEventListener('input', function(){ f.m = gl.value.trim(); pf.linkChanged(); });
+      kl.addEventListener('input', function(){ f.b = kl.value.trim(); });
+      kind.addEventListener('change', function(){ if (f.cat === 'food') f.k = kind.value; else f.d = kind.value; });
+      addr.addEventListener('input', function(){ f.a = addr.value; f.aTouched = true; });
+      var err = el('div', 'hint'), acts = el('div', 'row-acts');
+      var sv = el('button', 'btn', 'Save place'); sv.type = 'button'; sv.dataset.testid = 'cf-save';
+      sv.addEventListener('click', function(){
+        if (!f.n.trim()) { err.textContent = 'Enter a name.'; name.focus(); return; }
+        if ((f.m && !safeUrl(f.m)) || (f.b && !safeUrl(f.b))) { err.textContent = 'Links must start with https://'; return; }
+        var id = f.editId || nextCustomId();
+        var it = sanitizeCustom({i: id, c: f.city, t: f.cat, n: f.n, k: f.k, d: f.d, m: f.m, b: f.b, a: f.a, ll: f.ll});
+        if (!it) { err.textContent = 'Something is wrong with the data.'; return; }
+        var found = false, list = customs.map(function(c){ if (c.i === id) { found = true; return it; } return c; }); if (!found) list.push(it);
+        setCustoms(list); saveCustoms();
+        if (!f.editId && f.day && f.sl) { var l2 = ((plans[f.day] || {})[f.sl] || []).slice(); l2.push({i: id, h: nextTime(l2, f.sl)}); setSlot(f.day, f.sl, l2); }
+        addForm = null; renderAll();
+      });
+      var cn = el('button', 'act', 'Cancel'); cn.type = 'button'; cn.addEventListener('click', function(){ addForm = null; renderPlanner(); });
+      acts.append(sv, cn); box.append(err, acts);
+      return box;
+    }
+    function myPlaces(){
+      var det = el('details', 'box'); det.open = mineOpen || !!(addForm && addForm.editId);
+      det.addEventListener('toggle', function(){ mineOpen = det.open; });
+      det.appendChild(el('summary', null, 'My own places (' + customs.length + ')'));
+      var bd = el('div');
+      if (!customs.length) bd.appendChild(el('p', 'hint', 'Nothing yet. Use "➕ Add another place…" in any list.'));
+      customs.forEach(function(it){
+        var row = el('div', 'mp-row'), info = el('div');
+        info.append(el('strong', null, emoji(it) + ' ' + it.n), el('span', 'mp-meta', ' · ' + CITY[it.c] + ' · ' + (it.ll ? '📍 on the map' : 'no pin')));
+        var btns = el('div', 'ev-actions');
+        var ed = el('button', 'act', '✎ Edit'); ed.type = 'button';
+        ed.addEventListener('click', function(){ addForm = {editId: it.i, city: it.c, cat: it.t, n: it.n, m: it.m || '', b: it.b || '', k: it.k, d: it.d, a: it.a || '', ll: it.ll || null, aTouched: true}; mineOpen = true; renderPlanner(); });
+        var del = el('button', 'act', '🗑 Delete'); del.type = 'button';
+        del.addEventListener('click', function(){
+          if (!confirm('Delete "' + it.n + '" and take it out of the plan?')) return;
+          Object.keys(plans).forEach(function(day){ SLOTS.forEach(function(sl){ var l = (plans[day] || {})[sl]; if (l) setSlot(day, sl, l.filter(function(v){ return v.i !== it.i; })); }); });
+          setCustoms(customs.filter(function(c){ return c.i !== it.i; })); saveCustoms(); renderAll();
+        });
+        btns.append(ed, del); row.append(info, btns); bd.appendChild(row);
+        if (addForm && addForm.editId === it.i) bd.appendChild(customForm());
+      });
+      det.appendChild(bd);
+      return det;
+    }
+    function renderPlanner(){
+      planEl.replaceChildren();
+      var card = el('div', 'card'); planEl.appendChild(card);
+      card.append(el('h2', 'sec-h', 'Planner'), el('p', 'sec-sub', 'Pick a day, then tick as many places as you like for each part of the day. It saves on this phone at once; use "Send the plan" so the others see it.'));
+      var bar = el('div', 'pl-bar');
+      var su = el('button', 'act', '🧭 Trip setup'); su.type = 'button'; su.dataset.testid = 'open-setup'; su.addEventListener('click', openSetup);
+      var reset = el('button', 'act', '↺ Clear the plan'); reset.type = 'button';
+      reset.addEventListener('click', function(){ if (confirm('Clear every planned place on every day? The trip setup stays.')) { plans = {}; savePlans(); renderAll(); } });
+      bar.append(su, reset);
+      if (statusMsg) bar.appendChild(el('span', 'pl-status', statusMsg));
+      card.appendChild(bar);
+      pickDay();
+      if (!curDay) { card.appendChild(el('p', 'sec-sub', 'Set up the trip first.')); return; }
+      var days = tripDays(), ci = days.indexOf(curDay);
+      var nav = el('div', 'pl-datebar');
+      var prev = el('button', 'act pl-step', '◀'); prev.type = 'button'; prev.setAttribute('aria-label', 'Previous day'); prev.disabled = ci === 0;
+      var next = el('button', 'act pl-step', '▶'); next.type = 'button'; next.setAttribute('aria-label', 'Next day'); next.disabled = ci === days.length - 1;
+      var ds = el('select', 'pl-date'); ds.setAttribute('aria-label', 'Choose the day'); ds.dataset.testid = 'plan-date';
+      days.forEach(function(d){ var n = dayCount(d); var o = new Option(dayLabel(d) + ' · ' + cityLabel(dayInfo(d)) + (n ? ' · ' + n + ' ✓' : ''), d); if (d === curDay) o.selected = true; ds.appendChild(o); });
+      function go(d){ curDay = d; openPicker = null; addForm = addForm && addForm.editId ? addForm : null; store('vf-day', String(d)); renderPlanner(); if (mapApi) mapApi.follow(dayInfo(d).c); }
+      ds.addEventListener('change', function(){ go(+ds.value); });
+      prev.addEventListener('click', function(){ if (ci > 0) go(days[ci - 1]); });
+      next.addEventListener('click', function(){ if (ci < days.length - 1) go(days[ci + 1]); });
+      nav.append(prev, ds, next); card.appendChild(nav);
+
+      var di = dayInfo(curDay), day = curDay;
+      var h = el('div', 'pl-day-h'); h.append(el('span', 'dnum', dayLabel(day)), el('span', 'pl-city', cityLabel(di)));
+      if (di.travel) h.appendChild(el('span', 'hint', 'Travel day: breakfast and lunch in ' + CITY[di.from] + ', dinner and bar in ' + CITY[di.c] + '.'));
+      card.appendChild(h);
+      var sp = spillFrom(day);
+      SLOTS.forEach(function(sl){
+        if (!di.sc[sl]) return;
+        var city = di.sc[sl], row = el('div', 'pl-row'); row.dataset.slot = sl;
+        row.appendChild(el('div', 'pl-label', SLOT[sl]));
+        var ctl = el('div', 'pl-ctl');
+        if (sl === 'exc' && sp) ctl.appendChild(el('div', 'pl-status', '↳ ' + sp.n + ' (day 2)'));
+        shown(day, sl).forEach(function(v){
+          var it = byId[v.i], p = el('div', 'pick'); p.dataset.testid = 'pick-' + it.i;
+          var top = el('div', 'pick-top');
+          top.appendChild(el('span', 'pick-name', emoji(it) + ' ' + it.n));
+          var tm = el('input'); tm.type = 'time'; tm.step = 300; tm.value = v.h; tm.setAttribute('aria-label', 'Time for ' + it.n);
+          tm.addEventListener('change', function(){ if (/^\d\d:\d\d$/.test(tm.value)) { v.h = tm.value; savePlans(); renderItin(); if (mapApi) mapApi.refresh(); renderPlanner(); } });
+          var rm = el('button', 'pick-rm', '✕'); rm.type = 'button'; rm.setAttribute('aria-label', 'Remove ' + it.n);
+          rm.addEventListener('click', function(){ setSlot(day, sl, ((plans[day] || {})[sl] || []).filter(function(x){ return x !== v; })); renderAll(); });
+          top.append(tm, rm); p.appendChild(top); p.appendChild(badges(it));
+          if (it.note) p.appendChild(el('div', 'note-mine', '💬 ' + it.note));
+          p.appendChild(links(it));
+          ctl.appendChild(p);
+        });
+        if (openPicker === sl) ctl.appendChild(pickerPanel(day, sl, city));
+        else {
+          var n = shown(day, sl).length;
+          var ab = el('button', 'act add-btn', n ? '＋ Add more' : '＋ Choose places'); ab.type = 'button'; ab.dataset.testid = 'add-' + sl;
+          ab.addEventListener('click', function(){ openPicker = sl; addForm = null; renderPlanner(); });
+          ctl.appendChild(ab);
+        }
+        if (addForm && !addForm.editId && addForm.day === day && addForm.sl === sl) ctl.appendChild(customForm());
+        row.appendChild(ctl); card.appendChild(row);
+      });
+      warnings(day).forEach(function(w){ card.appendChild(el('div', 'pl-warn', '⚠ ' + w)); });
+      var st = stale(day);
+      if (st.length) {
+        var sb = el('div', 'pl-warn');
+        sb.appendChild(document.createTextNode('Planned earlier, but not in this day\'s city any more: ' + st.map(function(x){ return byId[x.v.i].n; }).join(', ') + '. '));
+        var rb = el('button', 'act', 'Remove them'); rb.type = 'button';
+        rb.addEventListener('click', function(){ st.forEach(function(x){ setSlot(day, x.sl, ((plans[day] || {})[x.sl] || []).filter(function(v){ return v !== x.v; })); }); renderAll(); });
+        sb.appendChild(rb); card.appendChild(sb);
+      }
+      card.appendChild(myPlaces());
+    }
+
+    // ---------- Map view (Leaflet + OpenFreeMap/OSM, loaded on first open) ----------
+    var mapEl = document.getElementById('view-map');
+    var mapState = {city: (curDay && dayInfo(curDay) ? dayInfo(curDay).c : tripCities()[0]), cat: 'all', onlyPlanned: false, day: ''};
+    var map = null, layer = null, mapReady = false, mapBuilt = false, mapApi = null;
+    var CATS = [['all', '', 'All'], ['food', '🍽️', 'Food'], ['bar', '☕', 'Cafés & bars'], ['exc', '🧭', 'Activities']];
+    function addCss(href, sri){ var c = document.createElement('link'); c.rel = 'stylesheet'; c.href = href; c.integrity = sri; c.crossOrigin = 'anonymous'; document.head.appendChild(c); }
+    function addJs(src, sri, ok, bad){ var c = document.createElement('script'); c.src = src; c.integrity = sri; c.crossOrigin = 'anonymous'; c.onload = ok; c.onerror = bad; document.head.appendChild(c); }
+    var vectorOk = null, waiters = null;
+    function loadLeaflet(cb){
+      if (window.L && vectorOk !== null) return cb();
+      if (waiters) { waiters.push(cb); return; }
+      waiters = [cb];
+      var done = function(){ var w = waiters; waiters = null; w.forEach(function(f){ f(); }); };
+      addCss('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css', 'sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==');
+      addJs('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', 'sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==', function(){
+        addCss('https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.min.css', 'sha512-ThCFU5nYVz8ubpOnjGHNGrTjZimTQ63X6t4een1DAWfKP8t39iSw2x3WlUr8EkePjBj48HeNkrAg9t9GRu+s2w==');
+        addJs('https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.6.0/maplibre-gl.min.js', 'sha512-UYgyVPlwHX0hwNIQk1W9mgdRepPxiOBEYqCcrIk85RKL6lh3YHujSSG2hf4RnCbRpPXfmJN5TtyauQWTV/wFEA==', function(){
+          addJs('https://cdn.jsdelivr.net/npm/@maplibre/maplibre-gl-leaflet@0.1.3/leaflet-maplibre-gl.js', 'sha512-2FbwW0aQmcMI7MEM4+SaaqcRYNtXhn/PJmYgT7xCE/jRQFx4VhLJlGedWb2+6+EZR6rEIApLMg7npMT3Bniy4A==',
+            function(){ vectorOk = !!L.maplibreGL; done(); }, function(){ vectorOk = false; done(); });
+        }, function(){ vectorOk = false; done(); });
+      }, function(){ waiters = null; var m = mapEl.querySelector('.map-msg'); if (m) m.textContent = 'The map could not load (offline?).'; });
+    }
+    var OFM_ATTR = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> · © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+    function baseLayer(m){
+      if (vectorOk) { try { L.maplibreGL({style: 'https://tiles.openfreemap.org/styles/liberty', attribution: OFM_ATTR}).addTo(m); return; } catch(e){} }
+      m.getContainer().classList.add('is-raster');
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '© OpenStreetMap'}).addTo(m);
+    }
+    function near(ll){ var c = CENTER[mapState.city][0], r = mapState.city === 'pq' ? 0.3 : 0.12; return Math.abs(ll[0] - c[0]) < r && Math.abs(ll[1] - c[1]) < r; }
+    function plannedWhen(id){ var out = []; tripDays().forEach(function(d){ SLOTS.forEach(function(sl){ shown(d, sl).forEach(function(v){ if (v.i === id) out.push(d + ' Dec ' + v.h); }); }); }); return out; }
+    function icon(txt, cls){ return L.divIcon({className: 'map-pin-wrap', html: '<span class="map-pin ' + cls + '"></span>', iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12]}); }
+    function marker(ll, txt, cls, title, z){ var m = L.marker(ll, {icon: icon(txt, cls), title: title, keyboard: true, zIndexOffset: z || 0}); m.on('add', function(){ var s = m.getElement() && m.getElement().querySelector('.map-pin'); if (s) s.textContent = txt; }); return m; }
+    function popup(title, lines, linksEl){ var p = el('div', 'map-pop'); p.appendChild(el('div', 'map-pop-t', title)); lines.forEach(function(l){ if (l) p.appendChild(el('div', 'map-pop-m', l)); }); if (linksEl) p.appendChild(linksEl); return p; }
+    function staysIn(city){ return (trip ? trip.legs : []).filter(function(l){ return l.c === city && l.ll; }); }
+    function renderMapControls(){
+      var box = mapEl.querySelector('.map-controls'); box.replaceChildren();
+      var seg = el('div', 'seg');
+      tripCities().forEach(function(c){ var b = el('button', null, CITY[c]); b.type = 'button'; b.dataset.city = c; b.setAttribute('aria-pressed', mapState.city === c ? 'true' : 'false'); b.addEventListener('click', function(){ mapState.city = c; mapState.day = ''; renderMapControls(); drawPins(true); }); seg.appendChild(b); });
+      box.appendChild(seg);
+      var opt = el('div', 'map-opt'), dl = el('label'); dl.appendChild(document.createTextNode('Day route:'));
+      var dsel = el('select'); dsel.dataset.testid = 'map-day'; dsel.appendChild(new Option('— all places —', ''));
+      tripDays().forEach(function(d){ var di = dayInfo(d); if (di.c !== mapState.city && di.from !== mapState.city) return; var o = new Option(dayLabel(d), d); if (String(mapState.day) === String(d)) o.selected = true; dsel.appendChild(o); });
+      dsel.addEventListener('change', function(){ mapState.day = dsel.value; renderMapControls(); drawPins(true); });
+      dl.appendChild(dsel); opt.appendChild(dl);
+      if (!mapState.day) {
+        var items = D.items.filter(function(it){ return it.ll && it.c === mapState.city; });
+        var chips = el('div', 'chips');
+        CATS.forEach(function(c){
+          var n = c[0] === 'all' ? items.length : items.filter(function(it){ return group(it) === c[0]; }).length; if (!n) return;
+          var b = el('button', 'chip', (c[1] ? c[1] + ' ' : '') + c[2]); b.type = 'button'; b.setAttribute('aria-pressed', mapState.cat === c[0] ? 'true' : 'false'); b.appendChild(el('span', 'cnt', String(n)));
+          b.addEventListener('click', function(){ mapState.cat = c[0]; renderMapControls(); drawPins(true); }); chips.appendChild(b);
+        });
+        box.appendChild(chips);
+        var ol = el('label'), cb = el('input'); cb.type = 'checkbox'; cb.checked = mapState.onlyPlanned; cb.dataset.testid = 'map-only-planned';
+        cb.addEventListener('change', function(){ mapState.onlyPlanned = cb.checked; drawPins(false); });
+        ol.append(cb, document.createTextNode(' Only what we planned')); opt.appendChild(ol);
+      }
+      box.appendChild(opt);
+    }
+    function dayStops(day){
+      var di = dayInfo(day), stops = [];
+      SLOTS.forEach(function(sl){ if (di.sc[sl] !== mapState.city) return; shown(day, sl).forEach(function(v){ var it = byId[v.i]; if (it.ll) stops.push({s: mins(v.h), h: v.h, ll: it.ll, label: emoji(it) + ' ' + it.n, it: it}); }); });
+      stops.sort(function(a, b){ return a.s - b.s; });
+      var stay = (trip.legs.filter(function(l){ return l.c === mapState.city && l.a <= day && day <= l.d && l.ll; }))[0];
+      if (stay) { var st = {h: '', ll: stay.ll, label: '🛏 ' + (stay.n || 'Your stay'), stay: true}; if (day > stay.a) stops.unshift(st); if (day < stay.d) stops.push(Object.assign({}, st)); }
+      return stops;
+    }
+    function drawPins(fit){
+      if (!mapReady) return;
+      layer.clearLayers();
+      var info = mapEl.querySelector('.map-route'); info.replaceChildren();
+      var pts = [];
+      if (mapState.day) {
+        var stops = dayStops(+mapState.day);
+        stops.forEach(function(x, i){ var mk = marker(x.ll, String(i + 1), 'pin-num' + (x.stay ? ' pin-stay' : ''), x.label, 1000 - i); mk.bindPopup(function(){ return popup((i + 1) + '. ' + x.label, [x.h], x.it ? links(x.it) : null); }); mk.addTo(layer); pts.push(x.ll); });
+        if (pts.length > 1) L.polyline(pts, {color: '#0F6E7A', weight: 3, opacity: .75, dashArray: '6 6'}).addTo(layer);
+        if (!stops.length) info.appendChild(el('p', 'map-msg', 'Nothing with a pin planned in ' + CITY[mapState.city] + ' that day.'));
+        else {
+          var ol = el('ol', 'route-list'); stops.forEach(function(x, i){ var li = el('li'); li.append(el('span', 'n' + (x.stay ? ' stay' : ''), String(i + 1)), el('span', 'h', x.h || ''), el('span', null, x.label)); ol.appendChild(li); }); info.appendChild(ol);
+          if (pts.length > 1) { var f = function(ll){ return ll[0] + ',' + ll[1]; }; var url = 'https://www.google.com/maps/dir/?api=1&origin=' + f(pts[0]) + '&destination=' + f(pts[pts.length - 1]) + (pts.length > 2 ? '&waypoints=' + pts.slice(1, -1).map(f).join('%7C') : ''); var bx = el('div', 'ev-actions'); actLink(bx, url, '🧭', 'Day route in Google Maps'); info.appendChild(bx); }
+        }
+        mapEl.querySelector('.map-count').textContent = stops.length + ' stops';
+        if (fit) { if (pts.length > 1) map.fitBounds(pts, {padding: [30, 30], maxZoom: 15}); else if (pts.length) map.setView(pts[0], 14); else map.setView(CENTER[mapState.city][0], CENTER[mapState.city][1]); }
+        return;
+      }
+      var n = 0;
+      D.items.forEach(function(it){
+        if (!it.ll || it.c !== mapState.city) return;
+        if (mapState.cat !== 'all' && group(it) !== mapState.cat) return;
+        var when = plannedWhen(it.i); if (mapState.onlyPlanned && !when.length) return;
+        var mk = marker(it.ll, emoji(it), 'pin-' + group(it) + (when.length ? ' is-planned' : ''), it.n);
+        mk.bindPopup(function(){ var meta = []; if (it.mi) meta.push('Michelin ' + it.mi); if (it.p) meta.push(it.p + (it.pu ? ' (unverified)' : '')); if (it.en) meta.push(it.en); return popup(emoji(it) + ' ' + it.n + (it.s ? ' ⭐' : ''), [meta.join(' · '), it.note ? '💬 ' + it.note : '', when.length ? '✓ Planned: ' + when.join(', ') : '', it.ax ? 'Pin approximate' : ''], links(it)); });
+        mk.addTo(layer); n++; if (near(it.ll)) pts.push(it.ll);
+      });
+      staysIn(mapState.city).forEach(function(l){ var mk = marker(l.ll, '🛏', 'pin-stay is-planned', l.n || 'Your stay', 500); mk.bindPopup(function(){ return popup('🛏 ' + (l.n || 'Your stay'), [l.a + '–' + l.d + ' Dec'], stayLinks(l)); }); mk.addTo(layer); n++; pts.push(l.ll); });
+      mapEl.querySelector('.map-count').textContent = n + ' places on the map';
+      if (fit) { if (pts.length > 1) map.fitBounds(pts, {padding: [28, 28], maxZoom: 15}); else map.setView(CENTER[mapState.city][0], CENTER[mapState.city][1]); }
+    }
+    function buildMap(){
+      mapEl.replaceChildren();
+      var card = el('div', 'card'); mapEl.appendChild(card);
+      card.append(el('h2', 'sec-h', 'Map'), el('div', 'map-controls'));
+      var box = el('div', 'map-box'); card.append(box, el('div', 'map-count'), el('div', 'map-route'), el('p', 'map-msg', 'Loading the map…'));
+      if (tripCities().indexOf(mapState.city) < 0) mapState.city = tripCities()[0];
+      renderMapControls();
+      loadLeaflet(function(){
+        map = L.map(box, {scrollWheelZoom: false, zoomControl: false}); L.control.zoom({position: 'bottomright'}).addTo(map); baseLayer(map);
+        layer = L.layerGroup().addTo(map); mapReady = true;
+        var msg = card.querySelector('.map-msg'); if (msg) msg.remove();
+        drawPins(true);
+      });
+    }
+    mapApi = {
+      follow: function(city){ if (city && city !== mapState.city && !mapState.day) { mapState.city = city; if (mapBuilt) { renderMapControls(); drawPins(true); } } },
+      refresh: function(){ if (mapBuilt) { if (tripCities().indexOf(mapState.city) < 0) { mapState.city = tripCities()[0]; mapState.day = ''; } renderMapControls(); drawPins(false); } },
+      show: function(){ if (!mapBuilt) { mapBuilt = true; buildMap(); } else if (map) { map.invalidateSize(); drawPins(false); } }
+    };
+    onMapShow = mapApi.show;
+
+    // ---------- Info tab (only when the fragment carries it) ----------
+    if (infoEl) { document.getElementById('view-info').replaceChildren.apply(document.getElementById('view-info'), Array.prototype.slice.call(infoEl.childNodes)); tabs.querySelector('[data-view="info"]').hidden = false; }
+
+    // ---------- Pointer bubbles: 3 tips, one at a time, once per device, "?" reopens ----------
+    var TIPS = [
+      {target: function(){ return tabs.querySelector('[data-view="itin"]'); }, view: 'itin', text: 'Your days: every day of the trip, with what you planned.'},
+      {target: function(){ return tabs.querySelector('[data-view="plan"]'); }, view: 'plan', text: 'Add food or an activity to a day: open the Planner, pick the day, tick the places.'},
+      {target: function(){ return shareBtn; }, view: null, text: 'Send the plan to your friends: this makes a link with the whole trip, so all three of you see the same plan.'}
+    ];
+    var tipEl = null, tipIdx = 0;
+    function closeTip(done){ if (tipEl) { tipEl.remove(); tipEl = null; } document.querySelectorAll('.tip-target').forEach(function(n){ n.classList.remove('tip-target'); }); if (done) store('vf-tips-seen', '1'); window.removeEventListener('resize', placeTip); }
+    function placeTip(){
+      if (!tipEl) return;
+      var t = TIPS[tipIdx].target(), r = t.getBoundingClientRect(), w = Math.min(270, window.innerWidth - 32);
+      var left = Math.max(16, Math.min(window.innerWidth - w - 16, r.left + r.width / 2 - w / 2));
+      tipEl.style.width = w + 'px'; tipEl.style.left = left + 'px'; tipEl.style.top = (r.bottom + window.scrollY + 12) + 'px';
+      tipEl.style.setProperty('--arrow', Math.max(12, Math.min(w - 26, r.left + r.width / 2 - left - 7)) + 'px');
+    }
+    function showTip(i){
+      closeTip(false); tipIdx = i;
+      var tp = TIPS[i]; if (tp.view && currentView !== tp.view) setView(tp.view);
+      var t = tp.target(); t.classList.add('tip-target');
+      tipEl = el('div', 'tip'); tipEl.setAttribute('role', 'dialog'); tipEl.setAttribute('aria-live', 'polite'); tipEl.dataset.testid = 'tip';
+      tipEl.append(el('div', 'tip-n', (i + 1) + ' of ' + TIPS.length), el('div', null, tp.text));
+      var acts = el('div', 'tip-acts');
+      var skip = el('button', 'tip-skip', 'Skip'); skip.type = 'button'; skip.dataset.testid = 'tip-skip'; skip.addEventListener('click', function(){ closeTip(true); });
+      var nx = el('button', 'tip-next', i < TIPS.length - 1 ? 'Next' : 'Got it'); nx.type = 'button'; nx.dataset.testid = 'tip-next';
+      nx.addEventListener('click', function(){ if (i < TIPS.length - 1) showTip(i + 1); else { closeTip(true); setView('itin'); } });
+      if (i < TIPS.length - 1) acts.appendChild(skip);
+      acts.appendChild(nx); tipEl.appendChild(acts);
+      document.body.appendChild(tipEl);
+      window.addEventListener('resize', placeTip);
+      window.scrollTo({top: 0});  // every target sits in the top bar or the tabs
+      placeTip(); nx.focus({preventScroll: true});
+    }
+    function startTips(force){ if (force || !load('vf-tips-seen')) showTip(0); }
+    tabs.querySelector('.tab-help').addEventListener('click', function(){ startTips(true); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && tipEl) closeTip(true); });
+    shareBtn.addEventListener('click', function(){ if (tipEl) closeTip(true); shareLink(); });
+
+    function renderAll(){ renderItin(); renderPlanner(); if (mapApi) mapApi.refresh(); }
+    renderAll();
+    return {hasTrip: function(){ return !!trip; }, openSetup: openSetup, startTips: startTips, onItin: function(){
+      if (TODAY && !scrolledToday) { var td = itinEl.querySelector('.tl-day.is-today'); if (td) { scrolledToday = true; td.scrollIntoView({block: 'center'}); } }
+    }};
+  }
+
+  // ---------- views ----------
+  var tabs = document.getElementById('view-tabs'), shareBtn = document.getElementById('share-btn'), currentView = null, app = null;
+  function setView(v){
+    if (['setup', 'itin', 'plan', 'info', 'map'].indexOf(v) < 0) v = 'itin';
+    if (v === 'info' && tabs.querySelector('[data-view="info"]').hidden) v = 'itin';
+    currentView = v;
+    tabs.querySelectorAll('[data-view]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-view') === v ? 'true' : 'false'); });
+    ['setup', 'itin', 'plan', 'info', 'map'].forEach(function(x){ document.getElementById('view-' + x).hidden = x !== v; });
+    if (v !== 'setup') store('vf-view', v);
+    if (v === 'map' && onMapShow) onMapShow();
+    if (v === 'itin' && app) app.onItin();
+  }
+  tabs.addEventListener('click', function(ev){
+    var b = ev.target.closest('[data-view]'); if (!b) return;
+    setView(b.getAttribute('data-view'));
+    var top = tabs.getBoundingClientRect().top + window.scrollY - 56;
+    if (window.scrollY > top) window.scrollTo({top: top});
+  });
+
+  // ---------- unlock: AES-GCM payload written by tools/encrypt_private.py; key = PBKDF2(site code) ----------
+  var PRIVATE = /*PRIVATE:BEGIN*/{"s": "kZxljgLpdNJqYIRAQY2qSw==", "i": "mNyRCjl4O82s7o2d", "c": "Cgvo2VOq3gDRFIq6m1rNnN40PMzqiVrsTiNLZMHhorEqKOR8aDa9tFZe4O3vl5E0C4GB6bPI0gJ4CTw7DEfOBjIjS8VXg+Dlx3P9oLB6lqXe0tcPK+blhYnmRV+8zu6/zzKMO/W7RM7ZqF8ciJbvuUBeGy6DvTx4vGYvw/XJjUe83X8nNhWQny6pg5OKtZdcCkDNkWRdQOFfWsEUkcCx4CrB78mxMzyfrwN4Jej2zy5vO1IRoUb2dRzCVciOAv6LtGqYf/TrX1HK3Dl03guGl0nmqIhtDhW+FK93LJyom1ZaPYOT38lvRkgxOAyIxwQ8L0VReDMEf3e5JGjdR5mmB4Da9TcCXrDNAkZ5HauPgFezDCDRcC3HoCQSl77dPtwyNAsWc8tTCvDE8VtsayNi4o+/8LejI80wjwSewEnyjvI9pWo8MBdWwzQu38QDjE0XbGiB8ON5N7CoK5wvBKDNFAaxzBtni56goQXxnk1NyqggiguEAyKELLnKIHK20G6YCGqumcoiIYJMChOXx0fZkixh2REnrvLzVqlfP5U5gwqe1lN4kxyxInczRuOk5eiJPEBOcdWHPRKHNHe7NsVAeJiDThFjLORul1mI76LM8GHo9crbjlLt5aYMH6VNPML41kP7qd7/N2DPvCaeKk0Gzqxj8PG8N7jpf+xp0RYcp6N8fF5q4ISJNzufUu5R0MMrMPEXBNoXW4VHfr73IWSiCpuOdwr5XdPyNhpBDIIKkuHZMhZH0pTKR3FJY5s2Q3HmAFO/7Iu8BiuaISTEADAJvD5/TEHeZeg1JeJh7bk6JWGqhkPZ7gQFmbLjmrLiJgsmL4EtGOc7OQ7mvHQz6r7DklfYQYIbXkGpKN//DISJjqMhyyg+tawi6zQBf1v0cQUqIwKsPCQy/yTd/WZAzbjgGyvJQU1nXKvSDJ/WGY1UKqALZbNn6/VvfQabwjRj5PxY11wsoPVgOtThPvFClaHwOGktH3jYUBftRkk9ndUqZhgJL94TKN3C9tkcawSj52LfD8HuzPv2KrwSBFwwLOLLWjUYuhpU60ROmLbM6jbo0JA/3Oywsc+XUWEbcEMGNeRXDBnTxXIds8149hrICjkqJlRCeQo7EulBfY1NibNVfr5BtfQrIOxyDin3wRvpor38dezhjOJCC8yA4ikRtefKFKmbqOakPVy2plVC3Kv/Q2co8gMhjw1JcWGfA00f05INr1cKf8cK8boQTmL94j0g8ionUXlc7UeTUsTUn28CxWIYAFs0ymVfHDi2MPRM7f9JsReg5i/motLRed7DTqDoqn//AjE402RnqePz2bchxEKPKKj8J0vyBkTyKeNcu67UlozkWfJ52A/uElN6EUJ5Va9762A+lW2XHWhsolK2ne+XX3KwEGLHQ4rsRRw0oqIStkJG/eYoV9w/JEq8Ds+v/xqExO6WE3scJjW4XxewFmUiWNCNZgOkJpUzdekIMT9S17NIOgaytswAzYustRB+rWY+IvRMqjtoMtaB9ODkChcsBczCfk8ZeR3rfgjCMe8dc84k8YWXdDdP+WINTyiZ++YSmq3WbP20C47TYbqPq90xgtWUL8fxY/IV4VI35TH1w90pXIonF/BswJAB389fH2GcIgLTfUlMbTYYLx3MA9AVMYVj0hZ2iMFmihuEHMRzxRqKyXhECf/Cut8YeHgwO4KvJW2N6w9AF/InL3tLON2xKih+rWB0344uRRPayLJeaBgZEHtAiJxVbIxguyj4F30Uc8sMTDPZN5VwsBkHzuS7ACGLogd31QT95lfvENUhRX/NFd6rlqnXa3FHSBU3pTtQiOHNAbrZL64nvAoY8nv6c1765aBbwe3AN/FUYCEn/2HBkkO7Bjo88zRdDpwB9/aOjKVTgUL/5gh8oeFyemEyWQ/uQ0ZqWZneZGQJcg8bgy+eDTe2ZkhXL/WspRermxPFTMg+cef2bl0cP9tESmz9iY+G6j0GdMF+k1ca/v9KEYJmzx3xASUZ24OAhLI4TqKrjCBhot9XZLyvNB/a9hMcwahUREOgMSLWCCjOPhtCJZ2vbMMERnMCfi9M0GUGxf8VbxzdW+z1larzSlrA2rrvXvX1wsNL/YCqB+Y7A89z0GgFqu14T4yF3QWXcTRq7wtzKh5y7lKCc7maBY5r9fHTC1U3zjzdQVv89wJPN9U49P6zn4CFbYhSwbnn3ZhTbohhyPwAg02n4DJnbX6LT2I/95PgVsZDPyLyhbp57Xmh6DKXR4f2hUrxkHHuu43P4Ei/zEpDy7BFgddNXQotr23LKWVNIQM6MptcAUsHoQnH8keZpXA9ZgsCxB4z9DE95Jf2xBh2XqvPKu74VSv+KmDQDXhx2RFlvKRAO3umqBlJxiiO2cIIN31TbHXc7azLH5jiOrn5PPIPrjeuZMSGABGS+gg1VEkrcfkomO66Cf6i8oFt9F4f4skIzhx4YihY4K8H9kSI3BJuWIAO4xaJghT0UBRlDmMiO5J0lytvDAQ9MX8lAnRS8GMTvGe6DuHzZkvjxes22qPbQFZTqxOzecltbW7x6eONM6Wa5Hhqnk/orB6F6V83//a2A2ldVjd9NpUG6Bnu1HbOEj3DACYf6pbwoHdzchkPyu3fqbWyazxG1ojVMEimSLxdiiMoKodqrKrDqMJbq1RxKpaLb1NwbkalvCxbE1cO69XZYnUxvziJZGsDkSLAlXk696e2rcAg4yzIvbMq6XVSZLl6M36npJH4a5XkmqdtbQnOPgCdxf4btqHRzmdXPNZzih7hyfmSfJFfD6LQVE8gzWYBLlfmonIENCwYsNgu/cdpFPfWJFd/KyLJyA+O1mhXB6VHtDjx4O64w8dxoYvRVSf/o+g3mHXWWQZESnASQHqYP3LaJF7xVFFqB2OKnQOaqsH0dTM6GxqxENLP3xaAe5+92DOdVkEqkktu97QGXAFY5LkCDAmurWytM5ul+kZJy5sPXENcwup7nk0p9HO6v9C//5wO+9wsLPTmBFJOVS3VYw2rP6MPnaAtpPVwH5MEc8T14MEcpo/FpQUNanvG/AuUSAVgzhsV6lg1ejwF1wYwRs/zFcgQ2lrDvMF+dp7lcccY2kIdtq6LfXWeGIy0JXlnUyat3+BQ/cyy7FX4mRF/Dm7pzvkXfwjZwf//h7YC2fuf8W0rFcD5GyIDRX+EVEmWGd9h5S9HMD633DkHZ/wl1rjcFXsvpFoW47cf0kt1Hst3MwcCjxRnONWegQ49tMY9xd9D2hmUVDQ3fJ2IHmADVzAyyvu2sT4ZcdLMElPpmePgW18VqXVFjQeSApGWL1SI+Sd5WHim+ynYLptqOhleM2d3AJMhIOO9IlH+F8MClfP86vDdsR/9oFOplpijGF3l5vAUEVSc97JStZ/Nwfa6G2WPcOJKXm2xdSge9eynUpqaDUXzjhRggr6gv0/f6o3/QNnE94DjtTPk+LGk+N09y3Vb+QudijrqtTNzvkJVh+pNDotiNubwLmQszpEcHkQkrYAKA9bZJo8yvtnOljOMwRmCPhPh2O7kkTyrkfVYekZPlIELkP7/ZIrhp30VIO66KE4VvXbi3xGQUvUaN7FwcYzBnCd4lLo/EX0epKJemNaKcS3zW/tdR30x23Y3PdbIB5c26D/OYkHcnA4A1VC3tAJi0wqz6BWq2c1yLEB3I9o3cCQ2Mf991K3LO84pc1t6mhYB7z/AKDEg4l+n+66TmP0WuSZgMoV6H2mfkGeJlaHrBXrOICdy7Z0Yovy5TcxNlxRCKsbK7lcCVQq7NguKDclTa73UtWVe3qs9kDn6G/oPGjruoyTA23/7DiPSXtjd+kOlz2qRT6IMv7Vjg17SOaM+UpFFQe6qBMvWBqqBxqSrIIVGVZBrYTe1OLDYe8D2HnBNPwRM9fNny5B+ITVh5NJ8JqID/t7p5Ok8K2DviAdxu8KKqsVDrJJe2tn8LrUvnZ4U50xNfRqmFyT0gmrSph1lLlt2OIizhCqDJUfDQA7Ll8xi8ZvYcQNWmayyKpBsJoGCSgvmkwhywDZuv21Omz+AEDh9Sd3bDSLbnyucYaSq83a8yCX5Tt316/3gyGyG0AmE9s34t9dMohFb1mb08D3rMMLUJGjabxWTPmaTLCUS4Mlc/Mj9yAfuY5p27+Dqc0cHjkZz9AuTLPXRDzDcr0Un/mz4YYJmw1f4p9CoBvJPmYSlZQdH/0eVZw21oom9/mH33OLlQKvI2xI7gA//mcoE3pkR5zZmfeRwvY14xjZJrpPxDNBkOhtYwm8Nc5fqeBvE78isM9mDhtaiDNfvHrbtsDQHpqihPhU1joU3GT3oSS6Ue68Qp3dRwUY2wGgMRadY/8dIZ55oryjfGVY29+FVw5xIPsGcmKJJR4LJ1wPVc8zdw+GPdSDtp0v1/FYJKy0raxiDFa3kVafjkwSAFRbdeF3AZ/ONoSHlZx6E+zxlqUtW/mr27e3sHLpEBwb0S8aohBtR7FqSwzF4nTOv2jL1LkD1FZBXCQ0CQpxRhZQEuzcHZtT68BSre6R3VG6QGXraF9iB0aQiDDEhjeW2SS/zesnakyg0xMUU/qe52Uw0YAHpYpu4NfcxKXuB43E92GRNw865mBRmYlIaeIdeve6vXumSpROQ/YVa1ed6zxBICfELtSGv5zyKZyPudK89OwanauEd9tTXkADbVCssXfGx/R/y+AWOqVR6yx0sriAkvB7dpiqdpL8rDixxdN+YaR/4UsGTGL6OxWg7koZpO8yloreN0qMY/JfmBonjdp5jeHEZyZHNRqpps3YuWdkzEuR6vzn43/sfdTn+ILJa/imWdmN1Ry6qbGdjv6hQBU94aVI43cy1vBKw3o3+VrIFxZOgS15/ue5uGzBVrBSoUxiR6kEqlNCb5rzEOcX9E3wiYc5SZXFuHPZ9MimkLqFpl8lsmRYHEi6wJ9/UREuAlwzuMIKo9zMo9iVyO1U2QKLyoa1ksMw9pmjQyqMshu8EZlbf+xTOtAF3aRvCufdltDAfUmvL1U40q1gzgfwwcLg3udprCcR+qR9QL+6xVAiD1mdyRmSuPjDsb26i3uKgP96XNdXDiPeDKPa2Xx6dGKCtmcjIGR9K1h/TIOzZZgQ3SnBDsCYIcHmIpK7UwLCV1mOueLDLndR8bAilwc8meQN9Hlo5NA3t7Y/SHp0SJVF7g5ApGZ4KD0Yx+SCy4OntHgP2FADKktvCJ+bn7PHYOI6yTenymk9hB12nTuRRE4WkmQ88pb0uUPUtEpDeLu5/oXwtgW/k0ZCCo/EDTHs4w45HKWaW1R46Jn23i9qqetUZcMgXaYcdBPLGc6SNHmvhOLYFiD6gBcYXQF6B/+X0t0DTJVzFgV8egF+DTvYpLLSaEyfEejmWUYUOncxl5pphBqHkpl9vP+KoKkb5Y2mWVfXYXQmHkJJoJJgbEgsLK+P9X02XxkpVtMrYayF7iAeJeGlQIorgluEzks6g2yMlHMYs2I5GkE3bLrYw/QVxqOQywLcUFF5hf9i32QYutnViJsJ7x4tTN15lt6Ke0BUsXAQHth3zZQuWyHPPelm2XcKSA3WF5us6Vn4cLK3yVG9Yq6jQ66I1Exxq86UKIHqGvFyAqeMqTXqGzxQraReoR4jgQ5AbG/CjbrsyV2dblYseAP0Pvlih954zSqcoRP5S1UZ89eB73wetgozjwtlsF2HW+oj0R3PcQ3PbF6ngAfKSHqXcxavryqPKzix/6xKodgR+NvwnD4f2aQxnGh+z9YEU+e4wqFdvE/M3WZMXQej/1R3RaINOYQ+Sm8frin4vVcWuydDCwjZnwabS3yjtaon6syZygI/xN/3/Cj1OdWbhbkCBgOneCR3z4TIKZj227L0VX6hJn3et2KA1w8tG9QgjK9HYVllqSJdTncF3dULv5Hn47MOLbrs9cCLnOS3YMwrwwQh5GT+OyOZ0AQ13Y4OXokPjN9h4Qki91CIiHYPrJulx9WX9HoY0aqVssd168/ybqMMjN6bHGHJjLYwKLDTfn5Fi9mza56QN5LgKRpMegVqd+g8ceLz3r9iCZD+gQUkR75CMTqj17RVXdvKVaZC03vMS0DZN/GXby7I/PjkP4IQNKoWw8ZjRf6lj4kTxmPzmJTiNnmuKt1X/H+fBGAWPvX9q2ZD2wjRL5mRksQuDXO0iDpKJEfQS2UvyEsQQwCO0kyNNFMSUYjubqx+A5Ofi0ILaZIYk4OgOBUG4TB/VIQC7NXP4htKNNn0S3xM5PsgzeRiPPyN31pDIxAkvwc9MJUVoE78cg1K6arqE5V1jc4eB6eF+KyF+3xFkmobzun+2FdOQUTAN3xZ85f5H0JrkbebVKEAUv3/6VcyCV9nCw46ttwC4GCp/QmYkAvtbSwaLn0qt+QalEQvT3zQCehr40L0dsNGRSil6EOFlGRfN/dr0GczR7u3eEqMqtkIxMMw0VVs9CPtACyqRGYRI/AG1x1qhHiEwPplv+EwIUxLUhau7qa7Hed6KrsEw5uNBMnlF5yKAXENGOjiw+P341Jt4o2VOPmg5TCJ8Lp8zMpE78RH26mzhziZN/9gVFzwv/Jn6Rrs1hVuIczExnxAqUMANVgTvOV9hcpf417WfKmGqv0qPpi3VraW7AmyT25mOcwq/W0G7UZRkx7vAVZXVh9xbY0mocsoDYf99V7R16ea4aXq9LgrhdQzw7vLGcSGCb5WlqXPb0USDo0ETyn9+kWVA6usIUFFt6Q9YSyPb62SC62bpX/QAR13wlc5D6z26jNqVdGGHKtNwj7EdnimJGcGCHonQF1oDZH+xRVna2YLW2FgHQsK96Fkk6KLQMa3CmUjmlkict2etn+Oi6TXTsgH8cllBln6TX4BEmSlPAva89QzJNBRd07Jhu+WrLqt1rN2CifnfpnPqA7L1MY2Kb9waJTfbM0kLiO1KWpyqO7yHMpRgzx59ETa+PrqbHPfkdd2eJ+e+eaXaFgg+S692a0BPVqqdY5afp26FmcDnR1bN/10heZ025YdSdZ8evkErIh7fxxTfMdUmmKkiSTD44fHF7RHE2P+7iq7yg5q2Sh91ZuJqIL/wd74cmfqljLI7QIR7uW0LhrJPdD4Yr1yRxh0JmzVqRfcrDcH1lHRv+7sFyzPmV+rcXX1as9d/ZIaiAx8GBlfoMya0nJTAQnB3foXj+QJVvTa5a998Q2nDikEzmoJ/EHnNqE/d/9qCDI6ICZJHbsGxi8/toXnDyfmcejcU2hLQAGEyL1SGuGeCFA42rrxnYukiHz9KgnoiFyE2g2829DYnJM8xkTHCfhEmuxZN+ApraHZcpiO4CeLPLT6+svbQhfcCodWiXuMAJzi/mheYc1rXOsuwD0RnBR7Ol3hZuMvJqBZOLlAzuxPymXitkl6w/BnJ1ruEBrLiLHr+YfM44ti5GVlONRwBYK9RtQcPuPd5FbUKdkSBKXkqYqJ5dN4mekBNDpqCuPXEem/xTp3ve+oF6EswSHD8rfuyCvQJXZXU8Iud/bXgAoOkW+4MHopUWrDE0uu7Jmqw4i710iP0pqmogmdxIACn6HabFNAdxeQNCbjfyPzgR74EX52BYsoM16hFlR/QuKS/5libo17JpHzyXIALoNTl0xwK+zanBTSxIyXtrvk8t09JZ6eMIDdIIpOE6keliLxLfe7uT0ZVYvpDs910Kj3IG1wqfrC1YK0LPCLXvaijLIJIZE/LxuN/O3FLkGwiiTRgQFgrEswDL0B/syvuv4b4wjRuBS8gZrzWqAMpo8/eXX+tV2/GczoP3rFDP7rpUqtsd7eU9f8DaXLPXW3DzdC7SypZNLiznqsNw50GPvQz/S+heg78uKOh5ffsVZMQ2SVkHF9u7IALZGNZwI6J9zR2pViLiuoZxbfALVqFsiSTGC4Op0Nr+WJ7bqOuitGNKJk+zTERlH5UEIHb6tHHC8CFS8Zp0DSGvmHDB7pDXIIsv1BOIk9STWEYBcTh/9VUdV/FZ2+cVTZLHVXz6/cP5zEZXrKfjQOfHhcysDQN80fHsijqw0IIFd0ziVd4dbi9wivh1ioLZeEJiKjxSeegEtzaE596xu1IIZ+/VCydkHuGTS4UPZYPtlQYkdOUEpUSj5BfxKPMn9GcaQv3lPkzPmpWaopTQCzSd2LQiaTM4cZtZtu+ODOyLOJJSze8wBWZVVfL35AmZvoEmVl/lyCCW6RT4BnuJF+CjVGID3ve9NhPIfj7XOUanPmXmDI2qCWYgqKt1ALXeLS0ZUKItA4eK1IVZ26GHBCnYrtgj45XyI/7gG3zIGXBcTAnuqaD4MUDGClWg4Z6SEvFw7gaCdVwIbJ3qRC3QXMZ9eWkHTx8GPX7PgGOl40KFov1wAUTndf6GvMlRwkm3J7UtmtZUQCIkT0GjMN8pfifXHNyt1DyytldMRAJJp68mnfR7P0rc3VfFfT0aiLEFS97CBA4MwrYP5k1GcTUgEhLU6d4R4V3x+xvCLLAX6fldx1OPi4vruQy9fsiEBstM35FlXW3dNqQsJvh7BzW2KCj8n3XV33CR4zq4rWJmIBtCcfhXWvzdm+rY5oVb5WZS7poPd8laI40iDCih1ZRjd4LYAs6yL1Zru3xAFVycrbEncnGaQpwCS/FYomWaHjqDzA57x7j0fE7aSLM37Ygse+5PudHVDYOz72y/bVm6jL6R62XT6iKziNs3EBQ+bs0Y9L6rpk0tfqPZYRXLlz23EI4cNOOEJLQXIjXaNz7JJx2AqhBKfUh/s3EFnu05M0WsRYxAocpjXp7hZNZp66zEytCjVKuUPYXVePNPepxAdXhDg0Otynt2jYz05UAMiYW7RM7cptnRfK8l+mY0jSyurP7Npvfw/VT/bT7kTND0lBnwaVwvCxQt/OdmSD/ibH1jy+s7ZnXbOPBNAsfBMQGYU/RMS7ffA9hqdIoBi0/FWpV9dWOGZXXD5sRGDoSFVPpM9GfU6RDW5KByfXIHJOxI4/NHSb80sIOJGjJB2C5ur2ge0Zw731ZvgfKypU1dYQ6iNz9tJooms0vsv+relrNOd7pNUjoMhGkc5UJjXXu2jDHZYoX1BD5K0u+rHwntblafTpYLHxsOE+wGa66d5jWZinc1NFR+WO3++7W7tF1mW9maLu36/GuL3omDwmooqAQaE9zBrZvUfKIGjEmunUlJGdpRTtEMosAMGjwLWWFgGBliKoRIB6Cy0dQbci1WqY0HTL52eXLLiWtpmSis6p9hfMVd9J0mGQmpFpYiCh7w/bFm1nuDvPca4KK7DpeziHVSV/nSE1NFbUP5StCtDcoCNo/9H62Yv3U5WZKdTEERnkatNg0ORihKRTH8Lmp1XBiN/S+PS08KRWZp62sbgzRMOM/BU+AxbUXDoiQ0wn3xmxdoZQR6ThJvvwl5hUcSpeRNBo0Jdm5BeRSkSsv2cCFkHM9NzIeS/dl4UVn5088LykI1keUdGaYBsyxNPB9i4HyoPpkjCDgiPDGx99Kj+K0okq1aoLR79T0XPJmv1tTE6tv1FHHfso/XJ7/LvtqJWn7qDTWuKuR1KrOZHLMzncV3ckCPI8aCdeia6dJ0Th+ZunARWhxI8Dz8wrb6NAG/XRwCuMW7MzR42nIGNQ1hnzFYKgP53QGGEsHpZaHTnbMTySua2IIy3u3mIO+HqBStc/1inBMTaonLk6Nj8zZXdJif68XhBMacW6UPrzPdok1S7p5EknTJq7GEws149RfeN4re0kboQsoKEF4ipRpDYFfE1XhAyjRKEUukgNcQ7JjV8pOuPz9iXdidAAVDW6E7uUfU4J0SZTC29XoUIuj8eUUKjgY059UoSFR4ITMezThtksa2Y0iTc++PAYA58TCAE49zzAdpBkX0Fp2+TFA63/Ed0DoWnXW8IX/Z9V6gzog/vX4oh5Y7NjH/TA+w67ZMC8uoULVMZF26SR62PY4Br4AqYRdMMDxHA/eO98HL6YaYYCONRpTXlHYRTN83Z8bao0FZWbCnbm5W1jBKal9/CA+VcTEzyK7AIwYmKC/11JuhmYbT1qvrqZ1ITewOvL8OCzEV9P+yijdjR7Dg6tJmZX/4lr1Gyi3vb63bVG9Uczvi3ArhT3Dh+mGN5jmSGlSJFwMQ0sKiUxsb/AcNqvwdgV235CkUuZDY4Hx7ciGqHajrxozJM78aMAEzzC2ChmfU1xb/ZXS1MIWw7EENkqscYJ8UCHF2s+QJlrBv8FwG+uBd1Ep2qnzb9COBT+ePvdSbkqD8+7vVN7+hbZQNYQllSVQkOOLlWwIW2zYpAJGimogV/UHMtl/K9MD3dCgEdDUVWov1+IaBdnBSb58s6iGXXKC/sPkWIfyPp+kSNTtOLF0ql6QA7/zMkL6pfxF4KbMCi7bDDF6BP5x+4Hlx96Cfo+KxekHGfACQY8h8Tpi35uhMP14zLhMTpbg4Xx0mo/BS/sxA45CnIydfmiVy51XKuoGzBWOMVG5b9UTJUuMcU7lWPUGP4y9slWWpveNPRplgmns1sKBOdKKdoPrPiUonDrQrnbHYJ0ZS1mJSl40NqI0Sqkbudc0gMvXNcHLgakrOPeSk6hryMxWdwB9P0lHnKG6hbf/lY1bKh1/F2wQOvSogiqXMMIAQ1pMGvf6XFx9G9RlAOuoAYGflxNYXKvHO1wpL7nasaOhqGvMXZ/J7Up30O/Pw/eaOH/AR4D4BtLS5irVG9R0PxefhidmNKa9NBcfzAD0268iHQG2OOSraOqUA1YNcj/oMAzJdM8Lmo8nLRmZoIdB8fERurtiFTJgePsIAkkJOs9h7fJ3qmz/Ae0cKWtL0oiu/A+TSSU+FQ1455XE+EUoylimrS1sZS6FbXHzjkNcCxBFnKhiLADndtwYUDCkqk+yPRwj3UXyh6Qi4ZwukMJcI3s2ARHu+YehxXwEsK9wBrcnneSz6gdIdqMOXvX/PyzGoGV3xCIRiKmNvhcTzTUR+fTC1X5BZfPbqItLeWd1lA7IDuYhVnrqIBw8IFKurNqM6wih1FexZ0GLHFQivT3DewH8gJzK+wigJb4rZqi/1DJ6hF076GW0PnY9JhtyXGGI1ctMUUOTq5fB3ItShLEJWW3tGs2ASqdyhOnvOVgSetT20Ba4Vc1vEcFySN7m/QBIcIH9ihVFjVHPM8/kVTp1DBV+iufx/3JMpRivVGoEYruTgrry9CzMaB8IS7YcmNoyLeoITjHq5ox0DOSvxFKuvgBohbjF3E5xxO7ip3N3lp1hX7PGV2f4hWUGN0G0X2woX8XRYSYECTBVGJVhBsd2NhXvRPIhMyWHaUCTklzTkcuLQBHPOu+E9P58PRFoedqRzn/UKK74WuJqARHY5ix0PPpsSzdTkgMzWViCjckJCcI2y0uOlALtEgjDhnagVVdzJf99hTgOg+DWCKkg7kPtToyfbwfVHPyfdSJkAK9nC67tgL7xKZyUjCAg4NAQjish/EcZ3EswFjk3VHGSDsZRODsb7fyOKVmG2NJrAN/DHVggsm0/w9z10JmMQiLwtDTdg0B20OxkLlthz6cOvnY7sfdxY9uDDLq/BqxG8TwTPuC9FlRguni6uszELTOep7SMcUysJp71Fd96fT4tXlRkorF1xKslyycOVAXP4+6kpPpsdFmwC33RAaMEjIUc39m75vkPzzIHMowJh6r6orH2aOadfxkdfKVLr/zy9b0Z3xdg2544AfjHp72ZWSO8gm5GY3yCu4svCoR6AK/36SNx5NCwZoTP94i3lzb3X5N7Us82PwdZDd4GO+NjpmwsksTLCKUJJukbqvY5Xcl95fuBDFOQ9IUT0QrHehKwVvD7swJI5lWGZiFUP9MgWwZzV7I0/mrTHAiRWQXSRR+oynsksC5+YKfzZqgHSxq7CByZG63QIFVag5H6rmWykmoZAM7UP5OGM/JUKAJZLJp0zim0cyP5dCzCZWtodZBDUPW5hro/plDwgM8CzdRAwWHTB/ecv2R2RnsjA6BeQJJaWmpJ6tgHwlsDh5+Vlku0FlK290s7QPIR2PMQxP7QtzXta3vsL2H3huNozUXIm+0EOShHgMY7K9C9Rt57A/LDDdSa/pk4kSS5BGdoeBdShbyPYECyWbR3tSdllDgCnNKttz068irzyaKjACujjRoeP8pwt+PO9OFJ6+/xCW3Zz436K8BYqHgEiMCmqYlGfTj4J3CcgRtHi1Yw8B3T5G9ua558X7DI+hdNVsw6w8k+zxuXe69AXKYohPX5tuCFRPGqL1Bz/VV0jtI1zryW5X/ieCMwq7StwRd+OMvMKgeALeKZUAFyy9THuyMHeEJam5PkgJTsn/NMj2xhsrgNlJz1Jayod/6lTZl+OfYtGPeIDFlNvoL97mW9D3enl48FNHC1z9AwjYHX+mugxCmFnNsZnVhd08ht2/mSP1/MiPsvT3jeejy8LVBflYx+y7hFsesyXYxFlUW0QM6s0NxdNAz0+uZ4B8N6xF6/kX294bmR5VK6zJ6vCtUqB2xFZtAodJ/5mGf8fPRay/nQ0/+wIrBZmVOom7YeXKmg8Pv//DTcBkeKnwOdiTFRCpgrprjkq4KUkFFwsOccpwinnDCNct6d1v49otKosbXXFc5WMxTWDudzOgUm6oI0qYhR3galgG3t8OtM8xIv5ifprqxOzFQ+2llEQifb7OAGnjJylsuCgWABMneSU9t8HuQ0DarVHfVlo2d4S4Y2P1qNST35kACNKcuIjJmqVxt+hNqDvtS+W16uexN43ZNScs7LOcogguWEVEN7jiq73+u4gDlCWMupks1UtdFKrlTW7z31SScIQGH9MhFQ4ONZmZ21DScwGfT1cMQOfm+T2WkmLPFoMw0AYZv5c0rnIWOLpf3qpNswRRRoIK6w54caCFhrsPQ4AqUQ8uGKUIsy2E+xO/HL1AuonR4buq0ibvjsRZeov1xBH/q+AAYb94FlIOXXxB+/87WgnvK3Y8Dt7MctdATlmUraPrrCzg5/X2uvh43jD/1iO9ham8pjRk2HPwlm+J8T94m1epG4KsTTxLLj5QD0E8Dlh/lXvqS6FLlth2rCdg2qDgzo50CrWYFGmO1qMR88C5nGwbkoqFFeGXjoFf1YdPKvqyJQyzf+Ftw5uKgne8zVs9QjRr9Rxj5W/dJ53KzxLNBRj/gUKSKTBhNLVo+VnRpaYqx/Qr8lgAOK6wP+7tZNtiyHtS2P335bh9BV1yh0HPk/pV5aYoYkAcRy9O5lNLeCZJLPC8nQUQju0l3LF+euDbr+RuGpTgWs8+59QUnRw1Eds+1H9LWp/xxofMoxRei3wCiahk/AGre/6FCrpsP+CD50G2uLl5qC0RNj9B/do2HN1yezQ0rLFodkP9KsvNb5csgz6hpPrTbbtBW4r4H37YLQy4rxxR22FlywS6DWMLf+O19J8EGBau2QwKZ2Vr5nE8cxN9TDZwUcFu+OxlTWl6xfvegS2zlF+0LN6TvsEVA0UdD3ZdjyWHNC/qJWLJaFDqgSLY2tNfMsFcT9zC5Vrf34YIddJ8dP5r87wEa+9khUIAeA2S/KBFXWsZL3cMgz82godz+vcfJPWyctxjCQK+CPxwyOcWl37tlAYGZJ1/XULcvqekUGRwy7bn6EFGmGnqPLHXFg5H8QlZtEPyIkPzU8M8B3U7sSeVCnB1vEnUXK5ZtbHVtbAgOijHV4+ILu+Oi6sXhtaCj7sis/lSAAGGXQmSqLlUfL2OtKZNvD9GbuOD1Ui82cymQUeHwEFuuqxtxWdPTgweOD7zu6rQiaLh19az0qg6saZKPhIkmWhjii2b3k90AgteCpIjkIbJpcRclhj6N4FPXCPNVrfw699KbH4JmRA0dTqEeN18piNyhAlcUmix1vvxwvtFsqWWv6FObq3i+n7AtjhF5ATsyZo4M0Exnf3ujlBCOmxTaCo81P6QaApCuc/RFc8ZV84+CVf3TfgkWFmD5e4ttVJTeDRqwwQ7luOz/sTppu3Ex0pevIPE/EPWyoz3sLBri7Bx6TnxMKBZYFNbnRpDg6nAjQvk+u3JTuqqA4RkkN4aycsc7ZYrzqEiBWN2RHro6RDS8CDKO1ZPtBtHdSp74xN31XUHz8Ktwmt13wA3qdpUnwrQjPH1FTKlSOTVhAocBDOrVsh54GPhSI0vb1WBKobgG1HD8Qwh6ZFaj7SDbGqCENGdc4xpVnLmSJkf7yGQw4yYHGWLjQPsqF4Z7ZmY5Imq+ofEsjaqAy1hfyB54P+rPY1RhAhXHiKf6B8Au7dDDNBLax08bsIv8IIlzE3Xh1QbCwxtVi9LwCouAxPC1DJVCXWWmewhXNkBQvalVo8KBaJwQEc0YJRgUrz3NEDkiegenzBdZcTPkj89ra3yEsJtUN17lSaOSvkm4jFDoTg887k3gzZiP/XWss3hGSyDeDFYSu98FFdO7dQYafqXV1bZdgTWoMQte9dQe6VilpyPflr1wk31FavS12tK+jOb1Zh2mS5JmKiWbisPCfTDg81I5CzNli8SJpj5MbrAYtmQooXfpYAF4WNukDqQdzvmY0h3XNI7wKFHl+/fbTU2RLVLrxKPSPFZef97KFGXweoj58/ql3kY+y0LxOolkMSOYS208sh1iE3qO4xhlOwomwFAz+Nujpd78F+156kGHWVYMKFDZxwPaEd3W8KNvv2Gl6PuBIieTV22IbeUPHaZKVxejGgOj7vOqfUO8pJdikgXzCuNeFpquHvD7NkZJFQdeJcqQG+RCC3vdzPPUI8N4kqgx0Us3hwUJKHFDTQLQxk4gcsCYQXsWtEMUv2fgMIvpswMpRZdaOxwtI6urkni97a3hORXwcNzVn1eblGc94QWUDxWn1dDMHunFEtxDO0n0UC0P+bRUDbnLGVeKxAZhaDbXK3WfXSmkFgFqd8ME6SZHkQr6lC4RAX3A2KWmj5zXgcoqWkk3pE8qwT6aiGQ8JQdQnq/OltQ4Hi3XORqg1svtGRekCSZKFZmWLTUTKL3lARol58G00CFzkIYXFs3ksuzzt+ODjFCPVjpVMdLk/j3YNmd6Ah8BljXV1d+ljTuG4Lgrybz5Dsmyk/79rGmOFAWTi/wylAvEZyaJRr9/t631xoOducMgCb778vzmMVdc8X317RcSDXUddNKcwP+yWOx+7mImTcBqGXuvaFUTj1T84FmpxPGhB6oLjWta4Edbc4+nHMX+PqHAWD6Qicj3LTUfiCwMot0P0F1tie1/56JP0aTloagQDfEXvVXRGelyD0T2QnLHipS5lJ1dEHWG7IE+gTeejxN2aMMibS9sJariFbhnO5JjzaybXHmJdEdT64llblGBtDdgK3qf1LNEnlFya1wpbvcPqFVxu4BXoDFk+sq96cgiNQ44wTvbL7x4wQxGaTOtYMKr+HWl/nPEMwk+MbkEATTmWy8Z+V/PjGfyU+pLSnXAQ2UJOomCmJvnezU7n3NWtTvzijVY6aBTSBUmP/7FmOIOs7/bLTbH6wlovocR9ANyEjF3+svtkzC/wsBzMWpgSmhKjC9SC+577geH71QyfrZdXK0qA6GCfMXEV6WexbNJIiu1GiWQBuJyR5eYn3dciCb/jLGVU+/7R6E3pVu/DroKiTwiqUUtZkiI7FMF0MyAJujJBi1mX51/COdWYQ/pE2DB7fS1iG7kl68qIFjPeCDaYvWVpnaKeGBt+dXVAiaI5ffzE2feEjZ7LdQ1KnLJFktEwLQ6rXrtfGnxil213lh1LMqFemPM9vdvS1MbcMHC8l21hy1CicIz2hehRLFDBNGOBREmeiPvkkzAU37DQvNb3I1U8DfL5vuUCVAaciIJP9K74EJhX2oBPMsKxo1bKnYH2Ec46BRGEm8+n6HJJaQSuiKDtzku8JW85+cYMP/P9lBBZP75v1cqyLOHj3p73b+K4E47kMbZMY/h4oA+TnKbl7orEX8e46SvP3lS9+ynbRuUmPFTRCg1IIjz/OaLvYxjQsSArryuQFzbuWHbfGGabzMofMHaAcM4XDdo6hJINbOGm5d13qD7j430Cv1hSSW7YW0VTEKdqn4Do+K2vhioKc8ymuKiy65s1xB/w3Fs1ny3LGIhXgfOtqSt87HvaKYzNw/CUpNIcWBXFg4g5xi48gcdPz/f+fhttLvcfIpMN4aZQ94n/Wyy8SajMUBbfpuIfM9YeD6j8l9Z3P9bozk/BgXblVOEmQSAmPMJMKvQHOjKCD3MNPu2VT2uIam8pQQBONjhFshx1RKeV3+JvaD7tJLjTScNgqRP2U3U6O3g/159EyYNWdWSgcLqrHCiUAZMFIpnpN3FlYDP4wrMh2IFiAaA/qTEuu8MiaYddVQAWAB/F0djwiVYEJ2o3P4tjBgYzlljRsl3kYiW3eySuIiDwj6ZCKEccoZ1USdSLDAnk/+MTGV96x6GFBK+YNAMUXDikjeUhNCot7sQK5PcPUU7lhKUkwjvzcaPkf7q2Uk2llh8vObzO+WgD5IPSFWT8YcZbrTeJLBTmpP3yKtiMOZHOtQxKmgtqRTjWqY7X/rwg/E22jORTYiNWgcqQ1FtnDa+KE5IaGc/7fUZ49L94a41S1T6cqdu5u/Fes54mMUcVYVkTUuthaQvhNfyltPIC377/8qG5sM24bZ1Bz8N1gd554eg9jrZoB48X79T1v/3ztGURVS2IEFS0qLrnvXdbHjZ6r5B8HDB33IO+wz4fuAzhjZtIYZAVaUliz7kpScJyZYx2G/36jr8G/H1LnUFd5bMT0u0nSIEeE2EwYMS7d+FyrRj+56HWIEtn41tCcsKT9Z+lFbTyknxhMToMW0MTRVXrZ/HQpzsQ9BUaARNLPCA1sHiPGvMZZbwZba6fuR+leBUJbjVQhnsf+lJ6LNaEdEut3c97u4MfKrXcRybe51zPya5cl19BnkFZufjIivMx4X6t2Q32cCGqSRwX5KW+DBWS57123aMFis98TwLXT3CrYqQQWKgD9iFvyEBHPUk+tZhjhnn7SHxz82PEHEj79cO6w2LJusFss7ykHAyG7X0WtX/qwbn6I82OGOXv9ASugB7uNWaluHS5KF+WGRBbZ1DIf7010x9a43Hk5fXpqX/6NVpodjRzOHjLIMbl/UKTohjq9aIoYTbdNurBuGD+x6vp9v/p2mesCXn0vF8t4Z76NnkG0Fz6fJuf+9UeaHh3iAq46W+e+HVyJKZUHMi62Nuc/swlY/U8ZJXvydScwa0rXTvwxnC2uFVfpKZo6Vq+OiHodUIIQ8o//fzETyp2SfpwQEJmwvbJpBraBlpk0WGvY9Zpv3AhFRx25KVsT/FS4pH28mnsNl/E5ViJyj4Kyidp4ZqtyHWR/UGaGR2xLX9TveobWL6orLY5McOYEFLkx8D4NB2CbB3+3ogBYMf1Vjcn54kIgS3QlQ/1L2Wfz1xKgrIvH4MbgcM0ZYRu0RdrlDJej74bT4WCHEP9kHjEyOU7jKyF1eJB9lH3jmd7nAOXgq/hU+kU3SalkgjVZy9GD+ibXWgNGtqMaAnvwnFosTFZbThyK94sch896eU0oPL9961EoyXd6iDkr1XkpK/nesg8Uyfi4+2gVXrxoGO3t0236MuwfHL2VTBf9uiXV7eQinJTAV5B6XoKaRX2LdqVENKpu0U89dD9/ZbU2OiH+UUF9FU+dtWnLCZCeB+WH2JX7LltjE7NWnZjkGPw+pLH2Cn7FzsLzcpASF7oB1bC1bdnVf+Ru2UEJfU9tNXoLYMShU6DXfBf29ZEp5NCDkrzVnSburget1vpCac32HJkVFJozCMJXDnsjBbWhppk3+zzuFAp1mGRTsLQA7o30IMa1f+GOcInrV01qyZBcp7fBTlEz8qJhxgHFWvij6lE6D6ZJ3rmMtP8PFlhDRvHKTymzLDt7ZdVwxgp2JWJhqXTXlQP4VrkT2iCgb8782abTRL+Y4G3ygobMCRt+bZ1GLh5N1lzIvBCqkM7WzKV7vwPSw4UPWlc91OsUkvXm0sqDBfyCB+caRn+57upEkdo2nuNwBVBAsbRBbBE4Ogp/R1GcBQj+h5HEjwBPotkD8Y3GeiFxzunEvf+RAs3vVUryAd2YhRMz3HoaMKUa2w9+sD8rti4u3juoTwCU5C5sECOTz0rJFAVjbGdk1CDn6QRvQZVJA1PX2xBh9Dw0T5J3MHKdevxQseWmPRS2rp1Wn1hYotVOjqXBMR+ejNu1rY55bFczy6fJSjMzafRTtCnllLv6XwzlFiZagCzWGf0YDyOSnp+ydb6fs/mxmcOhYYSBiFJYxU4YMQ8jT7R2ubIhB7Fac5HCX7OVjyMFDVd24HE8q7ERPWrNxO/m2n33g8kZEiPZSTLrW3zb3qp7rpFqGpcDCx/NjUKWCFw0j5zJwwg5if1XhEDx7JBGWmkj77Ln+Q9a/1Ggc50K6h2sAqwy6dTaQtR8KW2OgNuisHlFoOuvopTnYv22gCVAxLE99px1+OPINU/FzkLngxjo4BQ5UdK+tOwjAUhQf4orpwUqo8jxavjPGaVPGrXJtHN4WrU0OH02rejpSGLj9rDxbCkOObY4ZWDGqweI4ZLSj08uu5R00ggiIH6M/tZxayOzFCP2uKOgsDKeACCdU58iSqRMldsmWx57ng0obYeJLahosn0zM7YM/gVUhzggN9ntuUn5Cv1e5tANGZOJFiK1YOjG+ZEEHtf7b8QFprnDIO8Er/QIkqQyE/ADyZJCeJjML90HpTGl/nQHhBQmsSnOR8utAZVSAjdquxZLAjmXb5LpUDQMGsUn+3CkMwnntlfgR3SS85UuhNDnTwYCpFsPIu+BZJAREYse92B8o6dyNGR/T6uCjrqaZUA1Kr31ksZAZX+ssbI7zFSFsJ3htWcmVnANd3UYhqqV5nyiTOZY+WUjy9YKSsN/jbFLD50nlkzbDZmzRCwwb/nJDKnTSAD48e6ByXtEftAo+ls8OUO1jnsHhSxpKgz5qOWNpqBdXp69gO5A7diWGK30KKnyG7H3VSMf8iyn3XjCrMaO+iCCfdD/f0SPh5SZHbGHiIO+fnw6V9h3wEExEKHC3ILF9Rm0MjWq4Pt4zxZ2Spj32ZJi2mQot+wW0Yn3UcXShJmbfqCRhj4Yt7j6xEqM3zjFYPLM/U3nVOj+DYsOuYH3EzIhc7hFh9kdVvgnJ0aNGsUOzMyRbh3vrG7IGvILMctxykEUjmmoYHP50KGlj3yHJR3a1eTTzlF7ZkuwOaGFHX5VcRnNpQ9XfEQnsEeqF0H/V1lg92Grp51lt/CD747VIn+6HVn9kEgu3P1Xvs3T664V01kKWQX7fhLKRg4eoId4ODSOihtbG/4NM8LJwCwK872yQ3SQozTaeoL4wzuAJsPluN5CLybptCS4Orim2WfLmsDcOC/nVc2nsx9MJdoj8F2hmADDHVcue2iKTSy73gQckUM2J4UspiNvnf6aONAeTLWcsvd7fI4Kp5akDZt3kmw3jCawCGM3V69y6cfe2cZdIS++Tj+74yPTFkuulN8lr4UEGG7qIfLkdyufDF1O2v+ZOTh8CL2oIoYN5yJ8hId7xqyGYV4JsFBs6Lwv9yes7H7a3m39FwcejoZg2Gg0l9e/l/rM7kvgg08qvls2BlTUodIDiFWIMBCTM+qzjQEbxzOSgUHDdnr3cAdbh1aG1Y/93Y27pLcg1BSsj4oVvdjVUFqOYcBW61iYHu+MuG1Ix6A/bBtVQQWfwy6oi0Ys2D0RdIdqQ+BN5P+fjPzd92IxgzhlOGulXRHfqk1uJWXeLRQ7sjb+cd8eBoqAIrWROp3OfM9tNuhb1V+LMEVh18VA91uQP+JVWH/1j33CdErwuA1UPnMQMx3JcFPDAo7eddS65t1BYWNs9LrtVpi0a21lr7bi5mtvkRyvpa0YJd5W5Rc0I8Z20eLIF3hggMXi+jtAYYxrJXbPos1Q1Uyz0mhiDGLzB5KM2CZzD9LAZuxU10ujl/UQGEQ51u8Wxtd5N7j4BGP7Z4Kh9nVQzQDl6LxsbQ6LoDtLP8pIOjAbgQA2qmA8wPTd+y8W89B00NUXljXGDRSxN1ygwdTdsBhA97pExItd/kesSfHxNWgLPk6GWu75vu1xu+24hB8VF0yiCgmbXK5svEp/sctkQUpoNkycHdUdDO4CBSDzJL6b40A8pyPLasy6+QAiCbMLZGeHgWZMit4BSUqTn3caM0hmn4dk0LbfHgTBYKJAGrlgAiaPl3TWgNyb8lla8sGaygrH64UX4zV4GbNcuPtWNm8kvNK7OXAZHfgRfsZKkGei00zcVU2eflDfT19Iewo3YHMdP7HSKcbAsWeBLq1UbxiG7MHLEgR335Ux004MXP7gaQMZPIWe4UeCITjpz0IUIa7PVyh4+H6mWEAuvkXwzL7O6sYkksw6OjYyZRRmgnMqCA8NmZPLibDiZnJhpkKZM2ChPahp43Vi6+SrqE4vvm/wxoKUUuJPJNjw4hzE+rtP/uYCW/zzed02+91ixabFq9JsjnaDOI9OQqGjeAK7UC4GQgFuBmHhnExDOvjM1L3eMfaOxtcbSEySI3jQcIKHU1YABzU+q9KbbMVB3s3g0w86ahaEtZkycZ20gqy0B77I+VaFDmsTSoakLa6NPjWfan+63b+gdyyyhWw3DngEIhABijBmqgupEj5aDHDavaVsaGBR33PuEX3orWrrEPzPDALfzM3IEGS8y5BqgELivQJcYS9YFaVOLHOOhpR+x9i3XLcV40Dqug1cGfvelulKyjpKrcZoYc/UqMJIgvCDyYONmw1MtT0u2PYCK1KIKudq0sUQuI8CtvqlHhXw2XQem47ZZj3B7qUwu5OC4Pys3IJGdnupFcf1GZNfjI+jCzjAHPS4Mr9UkT4P3au1DlbhPkQ/ZzYurP/48oUR1xxFis+mkInGeC3nvwkaA1NzUquJhFweG4HloYKLrRfV4DRLupkUYMGngDewZ0EiU8T/E78lQuuX2l3oLDkxWYTOoax8LKAH7IbO3deN0esFTP2Mzd8EowgI2NTapVsvwP3NqmC27owWgmVvBIOlhENnMOlZyfMl3nbhyjrTHtZTJIT7kruNRw/MS19hOaetx/e1Ws0b6MBHjD40zF+agwDfN98i+Y1saGInwnEk0x+uklc6Lozn296tYDyBcJqGMAW4UXTq5bYjgfJeLK+lJRsPGEjuRWvlb2H+xAjstuRfoZdLZzfbQnLhmhqvgXiON7dSiHBAaPyBL5xkxaW1gl8u5CvY0e+Pm7ApIMGJrI6hoCLcdCK0olzzzWuLYMQl7va+6jaaLyQhdWIWn45QLE9D/Dapm6iad+Bmck6eZi0hG1SUwTk1E5OydoQvmPUSp37PYy1Sa0F4Snq3vTcJC9DmhdlF08hQfyKB1kZGRuASDe/oNCqUettGZkvd+GBENNrx8zK/VYfwaoIjGGyO5b7/VHwS3Fvbzryc8bqYXBc3pwOkHxb0T+mERietxjLg5trC/pATm2nRH/bMrNs17teZgPldrj/t3mc9eeCkzMZusF4Uf+bxPbw8f0RMjNvcYxDIQIF8LFU4bV+f+5SSPdNnU41vpGprk/qFYCzYeIBjiByKBo8RYpzJgTfB1OkbW5aHtgXy+hzuIpwO/d+0wuS1z2505ZMdGy02PC3Hgc/6cu7D99FZ0/+Rg1pF0BBYE8VwLRTpB7fjEnqUZYZKGLUrddVpT9OCmZ312aQkF7qjepXFO4FHipsJDo+u1BKsrbIVEhDuBn9XeQeFkXB2/ifAIjQCI2KP0nWweEZCCRajyu9XlNLBfHuISlEFH4sE5IFMBaxOcSqhpjqvPzq7IFKpovB3hy4KVWhYGclOAb8fQj/kOr9Wina5m+0SJ1JAT4UoFz4qkVr0uagbgkY9AWdWgEhPZfIA+oQ49Wpbt4edkQ65zFxImqEL4eCcm0HvHGKN1pSUgAR3H3ZFb+tIlN/RCT5WU4NapWvTu79iNQxF3BYJ/+2ZE4gHnCigD6rIoSxrqN3lJvmoD9PbG1Y5kSddbOpcSLAzX6l5AKqHf6q12Kk6MOfwWa0gaNyRWT/35mP6IINf3abmvSsgcHW+r/jLVJ8TQHF8ZPXV1KQtAws7GCVbgwy42NZZLrm1l3yDkz/AZmiBWnyusdx6h9VcYoddXpUkXT2RYyHbQHiRTszh6ON0J5ncvP/paDIwfO9t/WFM8oFcbbdGCx80/DsA4cC2eHVfKuDqwZ2lD645cruismjRR4xiJx6C2fyQukQtLCJIfZZYjexMoWC+HB2s+SmDkTDIvtyI0dDrAXUBgGU7CkilwfCmCrrWti50WxuJEzAjbJHmYpjg58D6uXeSRx56xil8axsWpXkog0CgeGgH9oC3OR6zTH036DsoEr0MmbZ2x8b3zKl0XvAWG9PgjERvyY5cYNMCWAvhE1Bj9DeYIIrhUOqGcwdtd/AhU0JXTj7tcTEOnXEUNNpzPA7h3BXQ3/TTFDTHA7432JXfBgdxjHOlE67nt+yCNRxJHlZboVMx39oUfUcrGA74f+sLKQyfsy9KIS8Popa5VZjhS3Q9iWyGNgHsFVo9d0k4mAuQGv/VLH8UoHEGUie5RgQyhiVYz38sQSeJ6zji9yz2KqRdMwL+oNevd7q8RV/PGetVSqjbv//HGM6WDaUN2ZH/QCDm4EEC/rnYbLCwlJbwnPBovOdMYbQiycHvOa3FdHEGW9/v8GCCYEeVOp3JOhuHjqjiNiUkiBMdN0bxD+hfQtCNqgFB67HoTD2etWKd0A6iPY9AkS2zdsVnygHdegqfTneJeJMdx8xXhT3WxQODBxaru4vNtq9LVuezeHR2aL5DjCDYQmDUwOH6jDcMnZvKnXNLmQXbU1LpQr8prOQ0UkT2dVIWo+SYc4hRj0jLfovFD/4Y0RP87XrgJ6wRy9+k5drKTbawqi5v16+iTCIk0GB9THUnbr8bNsPDOsJhDNJlxiqoFxK684z8VpgCLfKeFYCe5Vaq1WZDORK98LY4TmkmLy5RXyLODE7Dfdo04vqdKXmKOLjLMMOh2FiAZM5QUOY7EiI1EhQplovtOsjX8Te5YO7vsZx3qzNZy3F1kJvETQ3+CDdN9ybjlg1Vx4mxCcJoV+fBetD1d6jEtKemiUGgYDVmDWwV7rtMiw3S824EIs53vbKSBzoBusfWE9uwztC3N4dj2uJhOJflKxneBxpdZIgun3xHAUD0QzixdaIKkxTzIJV1QxrhfnYWRvCaVMgYX/giPbdI8n5evNqudY1CoCjtAqJlavR2gAO3MpM01XDmGLkDigeL9Wmji7FwOucB1GJCQgCTEjocig8/DPDjGUJoxkaE8DtaGhoZq6B1sQLgDRSQZ5dbkQu+91zyiPnk4NloA+nhYGE5Z6iZ+tk75SjVC/O3eNaRO81TEXz7P3Y6D+X1EN/MJ3Ic+w1PyY9yX6WSxaRi+0Izl4g9nGJ7y+LOWfKJ4EnAmRTnhOVQgzoQ2jpMxPG6WlVUvPWu8+2S01bIkNzqtFaV942mVIP53N1iXY8q8uzJepWoyecfMbUu0rH8Ak2+bkTWU6dLJLBoF86EtfITPVB6/d6QvLNLhzG7JfPSZB2OeEu5/1rP5AMQCgBVRLU68ZOAr7GPPPFBjeg5n0dqtWwAUOgaMec+QRyIVd4mwgc2pKE3rT6ZJt/k8hfjteUNFXbvZUaffmLigUYNhdcsGS4ucgvbVh4kCYxQKaNrdXnGGSFnvpKnij1Y9KNvR2N77iUh+bptZ2d1lT3G9P5toREcAZl+/GwDatJXS3Q6xLxtcTjr7kj9TNmMKLAoOl/rqm712YwxRZ2AuTZU0spXjSPpQbzNVkEr3tg036dY5dXHyVizS490K8BHUSbmTJdi7/SNgrum9K67NndaVYFS5JqygCBHRGCAlIs7U5KFodBK9B7CEcEHFRgAw5OAy1jn2Rv661rC3nexw/sBXBiuyggFVl8kuUA/3t+p9s4sQkKVmmYXoCpa/9W4glGBJWK7Lxhpsxlp1QPY1eAMM6YGjpy3TDMY6a/h33ZigXDj4AgC+6XqDsa1gHuII6uaR5z5h/YxfxfE8aRUqze/3c7WIoUWoXlcvBCGF94AzpAxV4bHoc424gbk6NHhBVEmUS0WmNTDS/COdw2iVRg6/N7/CkZRk8UDwIZXApvm8Nnly72Q7EV+CEv3K1OeIJXHonMRwNH6uE1gYzveazw2aB9ntbaXseJSNtOMNXqTgc9T7ANeMwKrd5z9zibkgK6k8kwvWgqtU+kHv7ViZwkg4DApmdD1otT9ZrkZKW5d4yuMKpXyftCC2GlhW/EnIIOJwH1yqoNZcDu66szt7N3dM0vTVjP74GczkjH2DOGBSOrI+3VC9+4ClIGJfmOM4fqBx5RHdK9x6abI/JNhefPHLpaOgWl9TV2LTycF3iB0o7dRwlmQXrKeTXnRwhl4rLihSeE81kEv7WiKDgEbeM8t5HOAwMfyj6MqebO2F/ZSA8L7ZxYDMYQ94Os36SueF22e+H86DIuhlQMzjkw1oyGZ4izcr1fzYQ9qq7qvjl1Zk5Q1X4VxCXXPQVefVLDGIo0GT3lMHYTw4x643qTdAe8TBfHKrZYMh4afsBWqyH5jd6vSY2I0MjRY7HMoT7/ExbzXdnP163HiL/tYhrky9/nRp8L075KBskvciNY/bTR3DXjzvUP6idCgd6C6hFEdnjAtEpyDMy6L0vUj1u2NztH0wU55HylRSKODrf9r6htgseRR3hh23EoT1EQJNYknXHoF5iz+l5pnv88iCrCp+zm9Bz9754UwI9pr4W5+TYn4xLXaKPwAb1eMbqFhJjvF52hvRU9DBGD6FdYGoVU7B50NHQxQ0ZPMR5s9DBgTMpd/JEQivf4Pmh4TJ+IRCDv1tJTrQzZFLTr4rxCCF4dJtpTJRKBgoZl2nMGgjXfi4p66Cze6EdWcJadPME1xTcAvCXIMXgPugRmh4w+zD9DWJDDZf4ZtTdZs6HbGKWcH2dCL9yTA9+EBpQDLqVcT8+Mg/fwX15rv3gEwbMz1EG1NCCcPTGXrHjEXSEK3mFaO/MMcqszoRyqTYF8JU2IWPIXh7umtidwxsSBixf93LMCtpkz/OFWcEdn3U3sl34iwPkJjRYBYAcpRZMGjdSbiN6RKBjY1fGgEpDpOkzasLKlibEo9MdNEU4RumL9mfJ49kX+/K+U+SvBxZ1Nirz8Tu41Z/RTL/ZOlF0gvNJbwiLmMt3dSWq8O/R+8/b+z8GnpjMNVUnLkIismJ9ZWFzVj3fqBhEFiKORC5Om3CTraJrMXR1tm6e/YU8LoppIIJIUKXxcI8hose+Bg80/HlgUyNSX8zvFex3bXn7tQUh0lVvpp12gL4EkZhLlFocm8dZvq0XVkyYEgN0hBNIrjQDdwsp7r9f8nt0TqrQL9QpyZM0igPsVJQ36zk17hwmjv1dTJdBkR1LyA+GRVPdUf1thOg53zDusx2A9/39+9VSC7Eq0xIJpltqhW7j/Mwpo401qUGlzPgIwjmAkGq2ajT8nCh2GIDLyWVtI1FlWfmi1FnKs4O6B4yFL1hGn+aLRvDkeIjw3MJmp2D9rwCcN4n9vmvqs2gtSdIkBGciSE5F9USHvA13ZiKFOWwyJZSN8pHswC/lqvZavCk9NvUxve9VBlKEgexN1vL0t7rD0d67LXWPPYaQ6tKS3P6bmJFNVZRnKgohu95W9spFIy+WzqTnL09ElCMSDtCmtRaK7AYCyFV2DIUkHLMB6Y1XZpImLKX6qImAbJdahyW+TEy1NA7UVcdDPvu53b5sMDJH6K7LZd5oQtru8hEu92Dopi9YJ47Q97nh+LyqSkwBfexsPOZRsHfP3LsbUquXEDtn4rkQo3bUBVJ6xFrsmo31OSZlZxiAynPMVYCPD4bU8crYdt2yrxivoqS6OOM0uDL7Mctk573WDD4tc9eCnQ5pvthTTaG0rR0Ozqc0osyRBkmnZ4iC4ncQaHz3fWaR9H9E9/br852w5QRkjdoxCReqXoczmbUxCmbE5++wNFkxhUH5E1jF1ZD0C7bdrVfS4M4tc9NTjfJaKmYO3cNlyNjGOtyxTft6hNWOPGtL1wPQWIuLgDKNFaR3hEiJj8ZLh3WHOE26+eRp/mWxGtiWKQKmWJ8H9Xv6b75K3dYp/INs1JvYjQvlc1dUP+ji4wXC58ZeJQCHWVSoyI7hDQeOG5FwiI4spAR7E3oHi6wyYCEvco6quiA1oiHkDizzUYdDihKWzqs4CiB7/y2h7YTmYHIAEnSt8GFGWgHV08EtHJTBUm6KNMgXaD8arw3kHpPOm/pxnq2TN95N1tl1F/p0GlPLqMdmPYv29b2VTtqUlPGhq3En3bUsFE1vxVizMZCbmC5gdkcWoCdO4q1mmDd9dvGHg3mFo/jh5YfWzhBgBELAaS2IYIqVkkPHmVOPQ8Q2s/eVPaNIQ8wyCzVDYv6mhNkc8FJetLMf0NRi6hlUX1rsKMhcQVb2MOGIr2Wsp1zWLz5qaum53Sa+gI8vs8ln0GkTdHzCGj0Dzi0kMkzlslVcN14JbER7SG1+cjXnwx20VqFk2GXwUKFQGEB0bivwVdHDNo/BHSUXSiE/XwHBHosBjzta0SEPo4xD1QAq+PMKGKPTvO305nJ3JVI13S2H3DcOh0k7dbyg53w6oE4aUiREJmi/TpPwZ6dMXVxlcRXOeqAd/txwJi2UO2otwIHGpbdWcPNr2ZzV0N8+nve03NHzYJFlENhOUYreCqvqSRD4zTgiBc+9iCDIK6hs1ilPGh0bvCOpJa3tkef0TE28trcn3z6rKG2bQezFTXWNEv4nmHPA2BDo5LhUKMSLWYQz9LGEveEmgHof7ZNrMbgLNRTYD7Rw7v1pz+g6y6chP/K+IXGBPT0Zw7wJ9kEc2dez14aslTe9xo34y60sKTce2xBhK6mBwBHcgMlVk0FjXszlwbBXbUDIdiFADi5bgFZOG3VfxIszPUh/Jfyg4wwBPMd9OHukWllRm4XLoMzGE0KpPeLKFQ9Dhke5pM2obw3WEaWZgd78LIeuCHegOsmlsLDs0feJ9XNC/Tb98luxyE1Yj2XeMf3W/I0qSMVtXQFtmUMUASl+64bTAca2mxuahrkJlxzb8yjje7GFi9HQYUkk4b9m3JJl/p4ZDoGnERYq8tswwdQl0KAbOpomagnzHCY/oZwC/ALm/mNp5+qznA/XT8ZFQgl2/uCGcsAsmM4YCJII21x38Xhxsb90tuAbzhtqlDXU21aySCimoqNeZ3rZHjXR18y+fn0y6buDl9RfDr2ycniKUBQyKa4KpVRBRVC4Wbq6psxxmuu7VHyytsyeeXUIh+MmSjAzINH/L8c7TNj3FlxGkHwU42vdzLJ+UgvQcJJgly7nxtjlyFlBvKl4Dg5bRjGFIcuPR9cK2eweGS+bjkRCk7uPtK8wJ8igLwPGLiNqwTT+fEuHDjd5g/sPoO+nRgwaQydZX4/qOLUkRmq4zxFScbMR7L8/2gH066cTzfRaK2DzYm+f85RphbtAOMLEXrSaxGUQUsc3bNwEQjp5hDz9m6dwVpfyDgRsEhRYAJBdg6Ddsee+w0VED/oH3Qr1VUfdLbqG+obbteFZFbWId/7LN5XgVUWMNVTWsOZUlqie2nQ/tfkApfT0yYeuHfe3JizgvaDcr/yTNa7mVxFsWSnz4ujRfEMOkr3NWkx8T6YMKe5WLg8LOes0BwlhlxFBvIsp37HnYlxvBgSqruLZJ0fra58qwphsbNWAss2lN4+LxTf/gsJQSa7pP4IOTvidlE0jyeiiNreFmaVhbhWqH50K9wfag40W/dv5MfVYbF0Da5bD3TsE/IryBojgRH7nazpkFEvPhWBFT7idZ7ShZlLZLvAp9B22yNSejQuIaGNKcFkcd1vQiosiNd2zCcwseQBP0MsKQzIYA6eCCyt48fZqqDhYPON/hMfysKJz6kXG9mV3pSbJwPoRCJdr1Oi7t2VpHZnuA2zbI"}/*PRIVATE:END*/;
+  var PRIVATE_ITER = 300000; // keep identical to ITERATIONS in tools/encrypt_private.py
+  var card = document.getElementById('unlock-card'), form = card.querySelector('.unlock');
+  function b64(s){ return Uint8Array.from(atob(s), function(c){ return c.charCodeAt(0); }); }
+  function norm(c){ return (c || '').replace(/[\s-]/g, '').toLowerCase(); }
+  function decrypt(code){
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(norm(code)), 'PBKDF2', false, ['deriveKey'])
+      .then(function(base){ return crypto.subtle.deriveKey({name: 'PBKDF2', salt: b64(PRIVATE.s), iterations: PRIVATE_ITER, hash: 'SHA-256'}, base, {name: 'AES-GCM', length: 256}, false, ['decrypt']); })
+      .then(function(key){ return crypto.subtle.decrypt({name: 'AES-GCM', iv: b64(PRIVATE.i)}, key, b64(PRIVATE.c)); })
+      .then(function(buf){ return new TextDecoder().decode(buf); });
+  }
+  function reveal(htmlText){
+    var tpl = document.createElement('template'); tpl.innerHTML = htmlText.trim();
+    card.hidden = true; tabs.hidden = false; shareBtn.hidden = false;
+    app = initApp(tpl.content);
+    if (!app.hasTrip()) { app.openSetup(); return; }
+    setView(load('vf-view') || 'itin');
+    app.startTips(false);
+  }
+  function msg(t){ form.querySelector('.unlock-msg').textContent = t; }
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (!PRIVATE) { msg('The trip details are not published yet.'); return; }
+    if (!window.crypto || !crypto.subtle) { msg('This browser cannot unlock the page here (it needs HTTPS).'); return; }
+    var code = form.querySelector('input').value;
+    msg('Checking…');
+    decrypt(code).then(function(t){ store('vf-code', norm(code)); reveal(t); }, function(){ msg('Wrong code. Check it, or ask Marius.'); });
+  });
+  // A plan link opened while the page is already open only changes the hash: reload so it is read
+  window.addEventListener('hashchange', function(){ if (/^#plan=/.test(location.hash)) location.reload(); });
+  var savedCode = load('vf-code');
+  if (savedCode && PRIVATE && window.crypto && crypto.subtle) decrypt(savedCode).then(reveal, function(){ forget('vf-code'); });
+})();
+</script>
+</body>
+</html>

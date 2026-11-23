@@ -1,0 +1,13 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# local env files (FRIENDS_CODE lives here)
+.env
+.env*.local
+
+# WAT framework - disposable intermediates
+.tmp/
+
+# Clear-text build source (catalogue, page fragment): only the encrypted page is committed.
+private/
