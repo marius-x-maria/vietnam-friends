@@ -9,8 +9,8 @@ tags: [agent, briefing, vietnam-friends]
 ## Your Role
 
 A Tier-0 static site under [[vibe-coder]]: a locked trip site in English for Marius's friends
-Eugen, Cris and Женщени (names exactly as Marius wrote them), 1-15 Dec 2026, Hà Nội, Phú Quốc and
-Saigon. Same structure as [[vietnam-itinerary-agent]]: itinerary, planner, map.
+Eugen, Cris and Женщени (names exactly as Marius wrote them), 17 Dec 2026 - 2 Jan 2027: Saigon,
+Phú Quốc, Hà Nội, Saigon. Same structure as [[vietnam-itinerary-agent]]: itinerary, planner, map.
 
 ## How to Operate
 
@@ -25,7 +25,7 @@ Saigon. Same structure as [[vietnam-itinerary-agent]]: itinerary, planner, map.
 | Capability | State | Note |
 |---|---|---|
 | Project scaffold | `included` | 2026-11-23 |
-| Trip setup (cities, dates, stays per city, 1-15 Dec) | `included` | 2026-11-23 |
+| Trip setup (cities, dates, stays per city, 17 Dec - 2 Jan) | `included` | 2026-11-23 |
 | Itinerary / Planner / Map tabs | `included` | 2026-11-23; several places per slot |
 | Info tab | `included` | 2026-11-23 (`private/info.html`, facts in [[info-tab-facts-2026-11-23]]) |
 | Locked page (code in `.env`) | `included` | 2026-11-23; real code not yet applied |
