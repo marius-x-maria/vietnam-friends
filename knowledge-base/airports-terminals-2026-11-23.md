@@ -2,11 +2,10 @@
 name: airports-terminals-2026-11-23
 description: Which airport and terminal the friends use in Saigon, Phú Quốc and Hà Nội, domestic vs international, with sources (fetched 2026-11-23)
 tags: [vietnam-friends, airports, snapshot]
+verified: 2026-11-23 by web search (sources below); the airline-to-terminal split can change, so the site tells the friends to check the terminal on their ticket.
 ---
 
 # Airports and terminals (snapshot 2026-11-23)
-
-verified: 2026-11-23 by web search (sources below); the airline-to-terminal split can change, so the site tells the friends to check the terminal on their ticket.
 
 Used by `index.html` (`AIR` table) for [[vietnam-friends-agent]].
 
